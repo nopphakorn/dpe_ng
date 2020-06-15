@@ -22,10 +22,33 @@
     <link rel="stylesheet" href="assets/css/custom.css" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- Theme Color Stylesheet -->
+    <link rel="stylesheet" href="assets/css/colors.php?color=FF8600" type="text/css" />
+    <link rel="stylesheet" href="assets/demos/news/css/fonts.css" type="text/css" />
+
+    <!-- News Demo Specific Stylesheet -->
+    <link rel="stylesheet" href="assets/demos/news/news.css" type="text/css" />
+    <!-- SLIDER REVOLUTION 5.x CSS SETTINGS -->
+    <link rel="stylesheet" type="text/css" href="assets/include/rs-plugin/css/settings.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="assets/include/rs-plugin/css/layers.css">
+    <link rel="stylesheet" type="text/css" href="assets/include/rs-plugin/css/navigation.css">
+
     <!-- Document Title
 	============================================= -->
-    <title>DPE</title>
+    <title>{{title}}</title>
 
+    <style>
+        /* Revolution Slider Styles */
+        
+        .hesperiden .tp-tab {
+            border-bottom: 0;
+        }
+        
+        .hesperiden .tp-tab:hover,
+        .hesperiden .tp-tab.selected {
+            background-color: #E5E5E5;
+        }
+    </style>
 </head>
 
 <body class="stretched">
@@ -46,11 +69,23 @@
     <!-- External JavaScripts
 	============================================= -->
     <script src="assets/js/jquery.js"></script>
-
+    <script src="assets/js/plugins.infinitescroll.js"></script>
     <!-- Footer Scripts
 	============================================= -->
     <script src="assets/js/functions.js"></script>
+    <!-- SLIDER REVOLUTION 5.x SCRIPTS  -->
+    <script src="assets/include/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+    <script src="assets/include/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
 
+    <script src="assets/include/rs-plugin/js/extensions/revolution.extension.actions.min.js"></script>
+    <script src="assets/include/rs-plugin/js/extensions/revolution.extension.carousel.min.js"></script>
+    <script src="assets/include/rs-plugin/js/extensions/revolution.extension.kenburn.min.js"></script>
+    <script src="assets/include/rs-plugin/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script src="assets/include/rs-plugin/js/extensions/revolution.extension.migration.min.js"></script>
+    <script src="assets/include/rs-plugin/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script src="assets/include/rs-plugin/js/extensions/revolution.extension.parallax.min.js"></script>
+    <script src="assets/include/rs-plugin/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script src="assets/include/rs-plugin/js/extensions/revolution.extension.video.min.js"></script>
 </body>
 
 </html>

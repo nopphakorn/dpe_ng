@@ -9,6 +9,9 @@ import { AppfooterComponent } from './components/appfooter/appfooter.component';
 import { AppheaderComponent } from './components/appheader/appheader.component';
 import { PagesComponent } from './pages/pages.component';
 import { FormsModule } from '@angular/forms';
+import { ContentOneComponent } from './home/content-one/content-one.component';
+import { ContentTwoComponent } from './home/content-two/content-two.component';
+import { ContentThreeComponent } from './home/content-three/content-three.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +19,10 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     AppfooterComponent,
     AppheaderComponent,
-    PagesComponent
+    PagesComponent,
+    ContentOneComponent,
+    ContentTwoComponent,
+    ContentThreeComponent
   ],
   imports: [
     BrowserModule,
