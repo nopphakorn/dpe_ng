@@ -1,78 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Testcanvas</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
-
 <head>
-    <meta charset="utf-8">
-    <title>DPE</title>
-    <base href="/">
+
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="author" content="SemiColonWeb" />
 
     <!-- Stylesheets
-	============================================= -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Poppins:300,400,500,600,700|PT+Serif:400,400i&display=swap" rel="stylesheet" type="text/css" />
+    ============================================= -->
+    <link href="http://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700%7CRoboto:400,500,700" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="assets/css/bootstrap.css" type="text/css" />
     <link rel="stylesheet" href="assets/style.css" type="text/css" />
-    <link rel="stylesheet" href="assets/css/swiper.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/dark.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/swiper.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/font-icons.css" type="text/css" />
+    <link rel="stylesheet" href="assets/one-page/css/et-line.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/animate.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/magnific-popup.css" type="text/css" />
 
-    <link rel="stylesheet" href="assets/css/custom.css" type="text/css" />
+    
+    <link rel="stylesheet" href="assets/css/responsive.css" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Theme Color Stylesheet -->
-    <link rel="stylesheet" href="assets/css/colors.php?color=FF8600" type="text/css" />
+    <link rel="stylesheet" href="assets/demos/news/css/colors.css" type="text/css" />
     <link rel="stylesheet" href="assets/demos/news/css/fonts.css" type="text/css" />
-
+    <!-- font-awesome -->
     <!-- News Demo Specific Stylesheet -->
     <link rel="stylesheet" href="assets/demos/news/news.css" type="text/css" />
+    <!-- / -->
     <!-- SLIDER REVOLUTION 5.x CSS SETTINGS -->
-    <link rel="stylesheet" type="text/css" href="assets/include/rs-plugin/css/settings.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="assets/include/rs-plugin/css/layers.css">
-    <link rel="stylesheet" type="text/css" href="assets/include/rs-plugin/css/navigation.css">
-
+    <link rel="stylesheet"  href="assets/include/rs-plugin/css/settings.css" media="screen" type="text/css"/>
+    <link rel="stylesheet"  href="assets/include/rs-plugin/css/layers.css" type="text/css">
+    <link rel="stylesheet"  href="assets/include/rs-plugin/css/navigation.css" type="text/css">
+    <!-- Star Rating CSS -->
+    <link rel="stylesheet" href="assets/css/components/bs-rating.css" type="text/css" />
+    <!--  Desktop Favicons  -->
     <!-- Document Title
-	============================================= -->
-    <title>{{title}}</title>
+    ============================================= -->
+    <title>หน้าหลัก | กรมพลศึกษา </title>
 
     <style>
         /* Revolution Slider Styles */
-        
         .hesperiden .tp-tab {
             border-bottom: 0;
         }
-        
-        .hesperiden .tp-tab:hover,
-        .hesperiden .tp-tab.selected {
-            background-color: #E5E5E5;
+
+            .hesperiden .tp-tab:hover,
+            .hesperiden .tp-tab.selected {
+                background-color: #E5E5E5;
+            }
+
+        #primary-menu.style-5 > ul > li:not(:first-child) {
+            margin-left: unset !important;
         }
+
+        #primary-menu ul li > a {
+            letter-spacing: unset !important;
+        }
+
+        /*#header.full-header #logo {
+            padding-right: unset !important;
+            margin-right: unset !important;
+        }*/
+        
     </style>
+
 </head>
 
 <body class="stretched">
-
-    <!-- Document Wrapper
-	============================================= -->
-    <div id="wrapper" class="clearfix">
-
+    <div id="Wrapper" class="clearfix" style="display: block;">
         <app-root></app-root>
-
+        
     </div>
-    <!-- #wrapper end -->
 
     <!-- Go To Top
-	============================================= -->
+    ============================================= -->
     <div id="gotoTop" class="icon-angle-up"></div>
 
     <!-- External JavaScripts
-	============================================= -->
+    ============================================= -->
     <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/plugins.infinitescroll.js"></script>
+    <script src="assets/js/plugins.js"></script>
+
     <!-- Footer Scripts
-	============================================= -->
+    ============================================= -->
     <script src="assets/js/functions.js"></script>
+
+    <!-- Star Rating Plugin -->
     <!-- SLIDER REVOLUTION 5.x SCRIPTS  -->
     <script src="assets/include/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
     <script src="assets/include/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
@@ -86,6 +113,350 @@
     <script src="assets/include/rs-plugin/js/extensions/revolution.extension.parallax.min.js"></script>
     <script src="assets/include/rs-plugin/js/extensions/revolution.extension.slideanims.min.js"></script>
     <script src="assets/include/rs-plugin/js/extensions/revolution.extension.video.min.js"></script>
-</body>
 
+
+    <!-- ADD-ONS JS FILES -->
+    <script>
+        // Navbar on hover
+        $('.nav.tab-hover a.nav-link').hover(function () {
+            $(this).tab('show');
+        });
+
+        // Current Date
+        var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            month = ["January", "February", "March", "April", "May", "June", "Feb", "August", "September", "October", "November", "December"],
+            a = new Date();
+
+        jQuery('.date-today').html(weekday[a.getDay()] + ', ' + month[a.getMonth()] + ' ' + a.getDate());
+
+        // Infinity Scroll
+        jQuery(window).on('load', function () {
+
+            var $container = $('.infinity-wrapper');
+
+            $container.infiniteScroll({
+                path: '.load-next-portfolio',
+                button: '.load-next-portfolio',
+                scrollThreshold: false,
+                history: false,
+                status: '.page-load-status'
+            });
+
+            $container.on('load.infiniteScroll', function (event, response, path) {
+                var $items = $(response).find('.infinity-loader');
+                // append items after images loaded
+                $items.imagesLoaded(function () {
+                    $container.append($items);
+                    $container.isotope('insert', $items);
+                    setTimeout(function () {
+                        SEMICOLON.widget.loadFlexSlider();
+                    }, 1000);
+                });
+            });
+
+        });
+
+      
+    </script>
+
+    <script>
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=499481203443583&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    </script>
+    <script>
+        $(function () {
+            $("#side-navigation").tabs({ show: { effect: "fade", duration: 400 } });
+        });
+    </script>
+       <script>
+        var tpj = jQuery;
+
+        var revapi420;
+        tpj(document).ready(function () {
+            if (tpj("#rev_slider_420_1").revolution == undefined) {
+                revslider_showDoubleJqueryError("#rev_slider_420_1");
+            } else {
+                revapi420 = tpj("#rev_slider_420_1").show().revolution({
+                    sliderType: "standard",
+                    jsFileLocation: "include/rs-plugin/js/",
+                    sliderLayout: "auto",
+                    dottedOverlay: "none",
+                    delay: 9000,
+                    navigation: {
+                        keyboardNavigation: "off",
+                        keyboard_direction: "horizontal",
+                        mouseScrollNavigation: "off",
+                        mouseScrollReverse: "default",
+                        onHoverStop: "on",
+                        touch: {
+                            touchenabled: "on",
+                            swipe_threshold: 75,
+                            swipe_min_touches: 50,
+                            swipe_direction: "horizontal",
+                            drag_block_vertical: false
+                        }
+                        ,
+                        thumbnails: {
+                            style: "gyges",
+                            enable: true,
+                            width: 80,
+                            height: 80,
+                            min_width: 80,
+                            wrapper_padding: 10,
+                            wrapper_color: "#333333",
+                            wrapper_opacity: "0",
+                            tmp: '<span class="tp-thumb-img-wrap">  <span class="tp-thumb-image"></span></span>',
+                            visibleAmount: 5,
+                            hide_onmobile: false,
+                            hide_onleave: false,
+                            direction: "vertical",
+                            span: true,
+                            position: "inner",
+                            space: 5,
+                            h_align: "left",
+                            v_align: "top",
+                            h_offset: 0,
+                            v_offset: 0
+                        }
+                    },
+                    responsiveLevels: [1240, 1024, 778, 480],
+                    visibilityLevels: [1240, 1024, 778, 480],
+                    gridwidth: [1200, 1024, 778, 480],
+                    gridheight: [600, 600, 600, 450],
+                    lazyType: "single",
+                    parallax: {
+                        type: "scroll",
+                        origo: "slidercenter",
+                        speed: 400,
+                        levels: [5, 10, 15, 20, 25, 30, 35, 40, 45, 46, 47, 48, 49, 50, 51, 55],
+                        type: "scroll",
+                    },
+                    shadow: 0,
+                    spinner: "off",
+                    stopLoop: "off",
+                    stopAfterLoops: -1,
+                    stopAtSlide: -1,
+                    shuffle: "off",
+                    autoHeight: "off",
+                    hideThumbsOnMobile: "off",
+                    hideSliderAtLimit: 0,
+                    hideCaptionAtLimit: 0,
+                    hideAllCaptionAtLilmit: 0,
+                    debugMode: false,
+                    fallbacks: {
+                        simplifyAll: "off",
+                        nextSlideOnWindowFocus: "off",
+                        disableFocusListener: false,
+                    }
+                });
+            }
+        });	/*ready*/</script>
+
+        
+<!-- <script src="../Scripts/jquery-3.3.1.js"></script> -->
+    
+<script>
+    $(function () {
+        $('.intro-showcase-section').hide();
+        $('.intro-showcase-section').eq(0).show();
+        // Navbar on hover
+        $('.tab-hover').find('.nav-link').on('click', function (e) {
+            var target = $(this).attr('href');
+
+            $('.tab-hover').find('.nav-link').removeClass('active');
+            $(this).addClass('active');
+
+            $('.intro-showcase-section').hide();
+            $(target).stop(true).fadeIn();
+
+            e.stopPropagation();
+            e.preventDefault();
+        });
+    });
+
+    // $(function () {
+
+    //     //$('.inline-calendar').datepicker();
+
+    //     $('#calendar').fullCalendar({
+
+    //         defaultDate: this.todayDate,
+    //         defaultView: 'month',
+    //         dayNamesShort: ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."],
+    //         header: {
+    //             left: 'title',
+    //             center: '',
+    //             right: 'month listMonth',
+
+    //         },
+    //         footer: {
+    //             left: '',
+    //             center: '',
+    //             right: 'prev,next ',
+
+
+    //         },
+    //         height: "auto",
+    //         locale: 'th',
+    //         noEventsMessage: "ยังไม่มีข้อมูล",
+    //         handleWindowResize: true,
+    //         buttonIcons: true, // show the prev/next text
+    //         navLinks: true, // can click day/week names to navigate views
+    //         editable: true,
+    //         eventLimit: true, // allow "more" link when too many events
+    //         displayEventTime: false,
+    //         listDayAltFormat: false
+
+    //     });
+    // });
+
+
+
+</script>
+<script>
+    var tpj=jQuery;
+    var revapi19;
+    tpj(document).ready(function() {
+        if(tpj("#rev_slider_19_1").revolution == undefined){
+            revslider_showDoubleJqueryError("#rev_slider_19_1");
+        }else{
+            revapi19 = tpj("#rev_slider_19_1").show().revolution({
+                sliderType:"carousel",
+                jsFileLocation: "include/rs-plugin/js/",
+                sliderLayout:"fullwidth",
+                dottedOverlay:"none",
+                delay:7000,
+                navigation: {
+                    keyboardNavigation:"off",
+                    keyboard_direction: "horizontal",
+                    mouseScrollNavigation:"off",
+                    onHoverStop:"on",
+                    tabs: {
+                        style:"hesperiden",
+                        enable:true,
+                        width:260,
+                        height:80,
+                        min_width:260,
+                        wrapper_padding:25,
+                        wrapper_color:"#F5F5F5",
+                        wrapper_opacity:"1",
+                        tmp:'<div class="tp-tab-content">  <span class="tp-tab-date">{{param1}}</span>  <span class="tp-tab-title font-secondary">{{title}}</span> <span class="tp-tab-date tp-tab-para">{{param2}}</span></div><div class="tp-tab-image"></div>',
+                        visibleAmount: 9,
+                        hide_onmobile: false,
+                        hide_under:480,
+                        hide_onleave:false,
+                        hide_delay:200,
+                        direction:"horizontal",
+                        span:true,
+                        position:"outer-bottom",
+                        space:0,
+                        h_align:"left",
+                        v_align:"bottom",
+                        h_offset:0,
+                        v_offset:0
+                    }
+                },
+                carousel: {
+                    horizontal_align: "center",
+                    vertical_align: "center",
+                    fadeout: "on",
+                    vary_fade: "on",
+                    maxVisibleItems: 3,
+                    infinity: "on",
+                    space: 0,
+                    stretch: "off",
+                    showLayersAllTime: "off",
+                    easing: "Power3.easeInOut",
+                    speed: "800"
+                },
+                responsiveLevels:[1140,992,768,576],
+                visibilityLevels:[1140,992,768,576],
+                gridwidth:[850,700,400,300],
+                gridheight:[580,600,500,400],
+                lazyType:"single",
+                shadow:0,
+                spinner:"off",
+                stopLoop:"on",
+                stopAfterLoops:-1,
+                stopAtSlide:-1,
+                shuffle:"off",
+                autoHeight:"off",
+                disableProgressBar:"off",
+                hideThumbsOnMobile:"off",
+                hideSliderAtLimit:0,
+                hideCaptionAtLimit:0,
+                hideAllCaptionAtLilmit:0,
+                debugMode:false,
+                fallbacks: {
+                    simplifyAll:"off",
+                    nextSlideOnWindowFocus:"off",
+                    disableFocusListener:false,
+                }
+            });
+        }
+    });	/* Revolution Slider End */
+
+    // Navbar on hover
+    $('.nav.tab-hover a.nav-link').hover(function() {
+        $(this).tab('show');
+    });
+
+    // Current Date
+    var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        a = new Date();
+
+        jQuery('.date-today').html( weekday[a.getDay()] + ', ' + month[a.getMonth()] + ' ' + a.getDate() );
+
+    // Infinity Scroll
+    jQuery(window).on( 'load', function(){
+
+        var $container = $('.infinity-wrapper');
+
+        $container.infiniteScroll({
+            path: '.load-next-portfolio',
+            button: '.load-next-portfolio',
+            scrollThreshold: false,
+            history: false,
+            status: '.page-load-status'
+        });
+
+        $container.on( 'load.infiniteScroll', function( event, response, path ) {
+            var $items = $( response ).find('.infinity-loader');
+            // append items after images loaded
+            $items.imagesLoaded( function() {
+                $container.append( $items );
+                $container.isotope( 'insert', $items );
+                setTimeout( function(){
+                    SEMICOLON.widget.loadFlexSlider();
+                }, 1000 );
+            });
+        });
+
+    });
+
+    $('#oc-news').owlCarousel({
+        items: 1,
+        margin: 20,
+        dots: false,
+        nav: true,
+        navText: ['<i class="icon-angle-left"></i>','<i class="icon-angle-right"></i>'],
+        responsive:{
+            0:{ items: 1,dots: true, },
+            576:{ items: 1,dots: true },
+            768:{ items: 2,dots:true },
+            992:{ items: 2 },
+            1200:{ items: 3 }
+        }
+    });
+
+    </script>
+</body>
 </html>

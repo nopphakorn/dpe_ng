@@ -11,5 +11,7 @@ export class ContentThreeComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  counter(i: number) {
+    return new Array(i);
+  }
 }
