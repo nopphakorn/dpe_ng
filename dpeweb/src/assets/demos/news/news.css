@@ -5,15 +5,14 @@
 
 /* change your menu color here */
 :root {
-    --home: #FF8600;
-    --travel: #6f42c1;
-    --tech: #007bff;
-    --fashion: #e83e8c;
-    --sports: #dc3545;
-    --lifestyle: #13a774;
-    --food: #17a2b8;
-    --market: #ffc107;
-    --thaihealth: #2da888;
+	--home: #FF8600;
+	--travel: #6f42c1;
+	--tech: #007bff;
+	--fashion: #e83e8c;
+	--sports: #dc3545;
+	--lifestyle: #13a774;
+	--food: #17a2b8;
+	--market: #ffc107;
 }
 
 /* Colors select as menu name */
@@ -34,17 +33,8 @@
 .bg-lifestyle { background-color:  var(--lifestyle) !important; }
 .bg-food { background-color:  var(--food) !important; }
 .bg-market { background-color:  var(--market) !important; }
-.bg-thaihealth {
-    background-color: var(--thaihealth) !important;
-}
-/* menu Colors */
-body:not(.dark) #header:not(.dark) #header-wrap:not(.dark) #primary-menu > div > ul > li.menu-color-thaihealth:hover > a,
-body:not(.dark) #header:not(.dark) #header-wrap:not(.dark) #primary-menu > div > ul > li.menu-color-thaihealth.active > a,
-#primary-menu ul li.menu-color-thaihealth ul li:hover > a,
-#primary-menu ul li.menu-color-thaihealth ul li:hover > a {
-    color: var(--thaihealth) !important;
-}
 
+/* menu Colors */
 body:not(.dark) #header:not(.dark) #header-wrap:not(.dark) #primary-menu > div > ul > li.menu-color-home:hover > a,
 body:not(.dark) #header:not(.dark) #header-wrap:not(.dark) #primary-menu > div > ul > li.menu-color-home.active > a,
 #primary-menu ul li.menu-color-home ul li:hover > a,

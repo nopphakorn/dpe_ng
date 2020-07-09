@@ -24,28 +24,24 @@
 	position: relative;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0,0,0,0.6);
-}
-
-body:not(.device-touch) .overlay .overlay-wrap,
-body:not(.device-touch) .text-overlay {
-	@include transition(all .3s ease-in-out);
+	background-color: $overlay-bg;
+	body:not(.device-touch) & {
+		@include transition(all .3s ease-in-out);
+	}
 }
 
 .overlay {
 	.overlay-wrap i {
 		position: absolute;
-		opacity: 0.8;
-		font-size: 24px;
+		font-size: $overlay-icon;
 		line-height: 1;
-		width: 24px;
-		height: 24px;
+		width: $overlay-icon;
+		height: $overlay-icon;
 		text-align: center;
 		top: 50%;
-		margin-top: -12px;
 		left: 50%;
-		margin-left: -12px;
-		color: #FFF;
+		transform: translate(-50%, -50%);
+		color: $overlay-icon-color;
 	}
 
 	&:hover {
@@ -58,18 +54,14 @@ body:not(.device-touch) .text-overlay {
 
 .text-overlay {
 	position: absolute;
-	opacity: 0.85;
+	opacity: $overlay-text-opacity;
 	top: auto;
 	bottom: 0;
 	height: auto;
-	padding: 40px 15px 15px;
+	padding: $overlay-text-padding;
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
-	background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.85))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.85) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.85) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.85) 100%); /* IE10+ */
-	background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.85) 100%); /* W3C */
+	background-color: transparent;
+	@include gradient-y($overlay-text-bg-start-color, $overlay-text-bg-end-color);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
 	backface-visibility: hidden;
 }
@@ -79,15 +71,15 @@ body:not(.device-touch) .text-overlay {
 	h3,
 	h4 {
 		margin: 0;
-		color: #F5F5F5;
+		color: $overlay-text-title-color;
 	}
 
 	h2 {
-		font-size: 28px;
+		font-size: $overlay-text-font-size;
 	}
 
 	h3 {
-		font-size: 17px;
+		font-size: round($overlay-text-font-size * .6);
 		font-weight: 600;
 	}
 
@@ -106,14 +98,14 @@ body:not(.device-touch) .text-overlay {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
-	color: #CCC;
-	font-size: 13px;
+	color: $overlay-text-meta-color;
+	font-size: round($overlay-text-font-size * .46);
 
 	span {
 		i {
 			position: relative;
 			top: 1px;
-			font-size: 14px;
+			font-size: round($overlay-text-font-size * .5);
 		}
 	}
 }
@@ -139,7 +131,7 @@ body:not(.device-touch) .text-overlay {
 	}
 
 	.text-overlay-meta {
-		font-size: 14px;
+		font-size: round($overlay-text-font-size * .5);
 	}
 
 	.rounded-skill {
@@ -149,5 +141,9 @@ body:not(.device-touch) .text-overlay {
 		right: 30px;
 		color: #FFF;
 		font-weight: 700;
+	}
+
+	@include media-breakpoint-down(sm) {
+		.overlay { display: none; }
 	}
 }

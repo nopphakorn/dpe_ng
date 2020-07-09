@@ -13,15 +13,15 @@
 .feature-box {
 	position: relative;
 	margin-top: 20px;
-	padding: 0 0 0 80px;
+	padding: 0 0 0 round($featured-box-icon * 1.25);
 	&:first-child {
 		margin-top: 0;
 	}
 	.fbox-icon {
 		display: block;
 		position: absolute;
-		width: 64px;
-		height: 64px;
+		width: $featured-box-icon;
+		height: $featured-box-icon;
 		top: 0;
 		left: 0;
 		a,
@@ -40,22 +40,24 @@
 		}
 		i {
 			font-style: normal;
-			font-size: 28px;
+			font-size: round($featured-box-icon / 2.3);
 			text-align: center;
-			line-height: 64px;
+			line-height: $featured-box-icon;
 		}
 	}
 	h3 {
-		font-size: 16px;
+		font-size: $featured-box-font-size;
 		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 1px;
 		margin-bottom: 0;
-		color: #333;
+		color: $featured-box-font-color;
+		.dark & { color: darken($text-color-dark, 13.33%); }
 	}
 	p {
-		margin: 8px 0 0 0;
-		color: #999;
+		margin: ($featured-box-font-size/2) 0 0 0;
+		color: lighten($featured-box-font-color, 40%);
+		.dark & { color: darken($text-color-dark, 40%); }
 	}
 	.before-heading { font-size: 14px; }
 }
@@ -66,13 +68,13 @@
 
 .feature-box {
 	&.fbox-large {
-		padding: 0 0 0 115px;
+		padding: 0 0 0 round($featured-box-lg-icon * 1.2);
 		.fbox-icon {
-			width: 96px;
-			height: 96px;
+			width: $featured-box-lg-icon;
+			height: $featured-box-lg-icon; //96
 			i {
-				font-size: 42px;
-				line-height: 96px;
+				font-size: round($featured-box-lg-icon / 2.285);
+				line-height: $featured-box-lg-icon;
 			}
 
 		}
@@ -86,11 +88,11 @@
 .feature-box {
 	&.fbox-outline {
 		.fbox-icon {
-			border: 1px solid $theme-color;
+			border: $featured-box-outline-border solid $theme-color;
 			@include border-radius(50%);
-			padding: 3px;
+			padding: $featured-box-outline-padding;
 			i {
-				line-height: 56px;
+				line-height: $featured-box-icon - ($featured-box-outline-padding * 2) - ($featured-box-outline-border * 2);
 			}
 		}
 	}
@@ -103,9 +105,9 @@
 	&.fbox-outline {
 		&.fbox-large {
 			.fbox-icon {
-				padding: 4px;
+				padding: ($featured-box-outline-padding + 1);
 				i {
-					line-height: 86px;
+					line-height: $featured-box-lg-icon - (($featured-box-outline-padding + 1) * 2) - ($featured-box-outline-border * 2);
 				}
 			}
 		}
@@ -150,28 +152,36 @@
 	&.fbox-light {
 		&.fbox-outline {
 			.fbox-icon {
-				border-color: #E5E5E5;
+				border-color: darken($white, 10.2%);
+				.dark & { border-color: rgba($white,0.15); }
 				i {
-					line-height: 54px;
+					line-height: $featured-box-icon - ($featured-box-outline-padding * 2) - ($featured-box-outline-border * 2);
 				}
-			}
-			i,
-			img {
-				border: 1px solid #E5E5E5;
-				background-color: #F5F5F5;
-				color: #444;
 			}
 			&.fbox-large {
 				.fbox-icon {
-					i { line-height: 84px; }
+					i { line-height: $featured-box-lg-icon - (($featured-box-outline-padding + 1) * 2) - ($featured-box-outline-border * 2); }
 				}
 			}
 		}
-		.fbox-icon i { line-height: 62px; }
+		.fbox-icon  {
+			i,
+			img {
+				border: 1px solid darken($white, 10.2%);
+				background-color: darken($white, 3.92%);
+				color: $text-color;
+				.dark & {
+					border-color: rgba($white,0.1);
+					background-color: rgba($white,0.1);
+					color: $white;
+				}
+			}
+			i { line-height: ($featured-box-icon - 2); }
+		}
 	}
 	&.fbox-large {
 		.fbox-icon {
-			i { line-height: 96px; }
+			i { line-height: $featured-box-lg-icon; }
 		}
 	}
 }
@@ -182,11 +192,20 @@
 .feature-box {
 	&.fbox-dark {
 		&.fbox-outline {
-			.fbox-icon { border-color: #444; }
+			.fbox-icon { border-color: $text-color;
+				.dark & { border-color: rgba($white,0.15); }
+			}
 		}
 		.fbox-icon {
 			i,
-			img { background-color: #333; }
+			img {
+				background-color: #333;
+				.dark & {
+					border-color: rgba($white,0.1);
+					background-color: rgba($white,0.1);
+					color: $white;
+				}
+			}
 		}
 	}
 }
@@ -209,9 +228,9 @@
 		}
 		.fbox-icon {
 			padding: 0;
-			i { line-height: 62px !important; }
+			i { line-height: ($featured-box-icon - 2) !important; }
 		}
-		&.fbox-large .fbox-icon i { line-height: 94px !important; }
+		&.fbox-large .fbox-icon i { line-height: ($featured-box-lg-icon - 2) !important; }
 	}
 }
 
@@ -222,9 +241,15 @@
 .feature-box {
 	&.fbox-border {
 		&.fbox-light {
-			.fbox-icon { border-color: #E5E5E5; }
+			.fbox-icon {
+				border-color: darken($white, 10.2%);
+				.dark & { border-color: rgba($white,0.15); }
+			}
 			i,
-			img { color: #888; }
+			img {
+				color: #888;
+				.dark & { color: $white; }
+			}
 		}
 	}
 }
@@ -235,9 +260,15 @@
 .feature-box {
 	&.fbox-border {
 		&.fbox-dark {
-			.fbox-icon { border-color: #333; }
-			i,
-			img { color: #444; }
+			.fbox-icon {
+				border-color: #333;
+				.dark & { border-color: rgba($white,0.15); }
+				i,
+				img {
+					color: $text-color;
+					.dark & { color: $white; }
+				}
+			}
 		}
 	}
 }
@@ -259,10 +290,10 @@
 				@include border-radius(0);
 			}
 			i {
-				font-size: 48px;
+				font-size: $featured-box-plain-font-size;
 				line-height: 1 !important;
 			}
-			img { height: 64px; }
+			img { height: $featured-box-icon; }
 		}
 		&.fbox-image {
 			.fbox-icon { width: auto; }
@@ -272,41 +303,41 @@
 			}
 		}
 		&.fbox-small {
-			padding-left: 42px;
+			padding-left: round($featured-box-plain-font-size * 1.5);
 			.fbox-icon {
-				width: 28px;
+				width: $featured-box-plain-font-size;
 				i {
-					font-size: 28px;
+					font-size: $featured-box-plain-font-size;
 				}
 				img {
-					height: 28px;
+					height: $featured-box-plain-font-size;
 				}
 			}
 			h3 {
-				font-size: 15px;
-				line-height: 26px;
+				font-size: $featured-box-font-size;
+				line-height: ($featured-box-plain-font-size - 2);
 				margin-bottom: 10px;
 			}
 			p {
-				margin-left: -42px;
+				margin-left: - round($featured-box-plain-font-size * 1.5);
 			}
 		}
 		&.fbox-large {
 			.fbox-icon {
-				i {font-size: 72px; }
-				img { height: 96px; }
+				i {font-size: round($featured-box-plain-font-size * 1.5); }
+				img { height: $featured-box-lg-icon; }
 			}
 		}
 		&.fbox-light {
 			.fbox-icon {
 				i,
-				img { color: #888; }
+				img { color: #888; .dark & { color: $white; } }
 			}
 		}
 		&.fbox-dark {
 			.fbox-icon {
 				i,
-				img { color: #444; }
+				img { color: $text-color; .dark & { color: $white; } }
 			}
 		}
 	}
@@ -325,23 +356,26 @@
 		}
 		.fbox-icon {
 			position: relative;
-			width: 96px;
-			height: 96px;
+			width: $featured-box-center-icon;
+			height: $featured-box-center-icon;
 			margin: 0 auto 30px;
 			i {
-				font-size: 42px;
-				line-height: 96px;
+				font-size: round($featured-box-center-icon / 2.285);
+				line-height: $featured-box-center-icon;
 			}
 		}
 		&.fbox-outline {
 			.fbox-icon {
-				i { line-height: 88px; }
+				i { line-height: $featured-box-center-icon - ($featured-box-outline-padding * 2) - ($featured-box-outline-border * 2); }
 			}
 		}
 		p {
 			font-size: 14px;
 			margin-top: 15px;
 		}
+		.dark & {
+			border-top: rgba($white,0.15);
+		}
 	}
 }
 
@@ -353,50 +387,50 @@
 	&.fbox-center {
 		&.fbox-large {
 			.fbox-icon {
-				width: 128px;
-				height: 128px;
+				width: $featured-box-center-lg-icon; //128px
+				height: $featured-box-center-lg-icon;
 				i {
-					font-size: 70px;
-					line-height: 128px;
+					font-size: round($featured-box-center-lg-icon / 1.83);
+					line-height: $featured-box-center-lg-icon;
 				}
 			}
 			&.fbox-outline {
 				.fbox-icon {
-					i { line-height: 118px; }
+					i { line-height: $featured-box-center-lg-icon - ($featured-box-outline-padding * 2) - ($featured-box-outline-border * 2); }
 				}
 			}
 		}
 		&.fbox-light {
-			.fbox-icon i { line-height: 94px; }
+			.fbox-icon i { line-height: $featured-box-center-icon - 2; }
 			.fbox-outline {
-				.fbox-icon i { line-height: 86px; }
+				.fbox-icon i { line-height: $featured-box-center-icon - ($featured-box-outline-padding * 2) - ($featured-box-outline-border * 2); }
 				.fbox-large {
 					.fbox-icon {
-						i { line-height: 114px; }
+						i { line-height: $featured-box-center-lg-icon - ($featured-box-outline-padding * 2) - ($featured-box-outline-border * 2); }
 					}
 				}
 			}
 		}
 		&.fbox-border {
 			.fbox-icon {
-				i { line-height: 94px !important; }
+				i { line-height: $featured-box-center-icon - ($featured-box-outline-padding * 2) !important; }
 			}
 		}
 		&.fbox-large {
 			&.fbox-border {
-				.fbox-icon i { line-height: 126px !important; }
+				.fbox-icon i { line-height: ($featured-box-center-lg-icon - 2) !important; }
 			}
 			.fbox-plain {
 				.fbox-icon {
 					i { font-size: 112px; }
-					img { height: 128px; }
+					img { height: $featured-box-center-lg-icon; }
 				}
 			}
 		}
 		&.fbox-plain {
 			.fbox-icon {
-				i { font-size: 84px; }
-				img { height: 96px; }
+				i { font-size: round($featured-box-plain-font-size * 3); }
+				img { height: $featured-box-center-icon; }
 			}
 		}
 	}
@@ -409,37 +443,36 @@
 	&.fbox-center {
 		&.fbox-small {
 			.fbox-icon {
-				width: 64px;
-				height: 64px;
+				width: $featured-box-icon;
+				height: $featured-box-icon;
 				i {
 					font-size: 28px;
-					line-height: 64px;
+					line-height: $featured-box-icon;
 				}
 			}
 			&.fbox-outline {
 				.fbox-icon {
-					i { line-height: 58px; }
+					i { line-height: $featured-box-center-lg-icon - ($featured-box-outline-padding * 2); }
 				}
 			}
 		}
 		.fbox-light {
-			&
-			.fbox-outline {
+			&.fbox-outline {
 				&.fbox-small {
-					.fbox-icon i { line-height: 54px; }
+					.fbox-icon i { line-height:  $featured-box-center-lg-icon - ($featured-box-outline-padding * 2) - ($featured-box-outline-border * 2); }
 				}
 			}
 		}
 		&.fbox-small {
 			&.fbox-border {
 				.fbox-icon {
-					i { line-height: 62px !important; }
+					i { line-height: $featured-box-icon - ($featured-box-outline-padding * 2) - ($featured-box-outline-border * 2) !important; }
 				}
 			}
 			.fbox-plain {
 				.fbox-icon {
-					i { font-size: 56px; }
-					img { height: 64px; }
+					i { font-size:  round($featured-box-center-icon - ($featured-box-outline-padding * 2)); }
+					img { height: $featured-box-icon; }
 				}
 			}
 			p {
@@ -461,18 +494,18 @@
 
 .feature-box {
 	&.fbox-right {
-		padding: 0 80px 0 0;
+		padding: 0 round($featured-box-icon * 1.25) 0 0;
 		text-align: right;
-		&.fbox-large { padding-right: 115px; }
+		&.fbox-large { padding-right: round($featured-box-lg-icon * 1.2); }
 		.fbox-icon {
 			left: auto;
 			right: 0;
 		}
 		&.fbox-plain {
 			&.fbox-small {
-				padding: 0 42px 0 0;
+				padding: 0 round($featured-box-plain-font-size * 1.5) 0 0;
 				p {
-					margin: 0 -42px 0 0;
+					margin: 0 - round($featured-box-plain-font-size * 1.5) 0 0;
 				}
 			}
 		}
@@ -483,33 +516,39 @@
 /* Feature Box - Subtitle
 -----------------------------------------------------------------*/
 
-.feature-box h3 + .fbox-icon { margin-top: 20px !important; }
+.feature-box {
+	 h3 + .fbox-icon { margin-top: 20px !important; }
 
-.feature-box h3 span.subtitle {
-	display: block;
-	margin-top: 5px;
-	color: #444;
-	font-weight: 300;
-	text-transform: none;
-}
+	h3 span.subtitle {
+		display: block;
+		margin-top: 5px;
+		color: $text-color;
+		font-weight: 300;
+		text-transform: none;
+		.dark & { color: darken($text-color-dark, 26.67%); }
+	}
 
-.feature-box.fbox-center:not(.fbox-bg) h3:after {
-	content: '';
-	display: block;
-	margin: 20px auto;
-	width: 30px;
-	border-top: 2px solid #555;
-	@include transition(width .3s ease);
-}
+	&.fbox-center:not(.fbox-bg) h3:after {
+		content: '';
+		display: block;
+		margin: 20px auto;
+		width: 30px;
+		border-top: 2px solid #555;
+		@include transition(width .3s ease);
+		.dark & {
+			border-top: rgba($white,0.15);
+		}
+	}
 
-.feature-box.fbox-center:not(.fbox-bg):hover h3:after { width: 50px; }
+	&.fbox-center:not(.fbox-bg):hover h3:after { width: 50px; }
 
-.feature-box.fbox-center.noborder:not(.fbox-bg) h3:after,
-.feature-box.fbox-center.nobottomborder:not(.fbox-bg) h3:after { display: none; }
+	&.fbox-center.noborder:not(.fbox-bg) h3:after,
+	&.fbox-center.nobottomborder:not(.fbox-bg) h3:after { display: none; }
 
-.feature-box.fbox-center.fbox-italic p {
-	font-style: italic;
-	font-family:  $body-font;
+	&.fbox-center.fbox-italic p {
+		font-style: italic;
+		font-family:  $body-font;
+	}
 }
 
 
@@ -521,8 +560,12 @@
 		&.fbox-center {
 			margin-top: 68px;
 			padding: 68px 30px 30px;
-			background-color: #FFF;
-			border: 1px solid #E5E5E5;
+			background-color: $body-bg;
+			border: 1px solid darken($white, 10.2%);
+			.dark & {
+				background-color: $body-bg-dark;
+				border-color: rgba($white,0.1);
+			}
 			@include border-radius(5px);
 				&:first-child { margin-top: 48px; }
 				&.fbox-large {
@@ -537,15 +580,22 @@
 			}
 			.fbox-icon {
 				position: absolute;
-				top: -48px;
+				top: -($featured-box-center-icon / 2);
 				left: 50%;
-				margin: 0 0 0 -48px;
+				margin: 0 0 0 (-($featured-box-center-icon / 2));
 			}
 			&.fbox-plain,
 			&.fbox-border,
 			&.fbox-outline {
-				.fbox-icon { background-color: #FFF; }
+				.fbox-icon {
+					background-color: $body-bg;
+					.dark & {
+						background-color: $body-bg-dark !important;
+					}
+				}
 			}
+
+			@at-root .dark #{&}.fbox-light .fbox-icon i { background-color: lighten($body-bg-dark, 4.71) !important; }
 		}
 	}
 }
@@ -554,9 +604,19 @@
 /* Animated Icon Hovers
 -----------------------------------------------------------------*/
 
-.fbox-effect .fbox-icon i { z-index: 1; }
+.fbox-effect .fbox-icon i {
+	z-index: 1;
+	@include transition(background-color 0.3s, color 0.3s);
+}
 
 .fbox-effect .fbox-icon i:after {
+	top: -$featured-box-outline-padding;
+	left: -$featured-box-outline-padding;
+	padding: $featured-box-outline-padding;
+	box-shadow: 0 0 0 2px darken($body-bg, 80);
+	@include transition(-webkit-transform 0.3s, opacity 0.3s);
+	@include scale(.8);
+	opacity: 0;
 	pointer-events: none;
 	position: absolute;
 	width: 100%;
@@ -566,31 +626,20 @@
 	-webkit-box-sizing: content-box;
 	-moz-box-sizing: content-box;
 	box-sizing: content-box;
+	.dark & { box-shadow: 0 0 0 2px lighten($body-bg-dark, 6.67); }
 }
 
 .fbox-rounded.fbox-effect .fbox-icon i:after { @include border-radius(3px); }
-
-.fbox-effect .fbox-icon i {
-	@include transition(background-color 0.3s, color 0.3s);
-}
-
-.fbox-effect .fbox-icon i:after {
-	top: -3px;
-	left: -3px;
-	padding: 3px;
-	box-shadow: 0 0 0 2px #333;
-	@include transition(-webkit-transform 0.3s, opacity 0.3s);
-	@include scale(.8);
-	opacity: 0;
-}
 
 .fbox-effect .fbox-icon i:hover,
 .fbox-effect:hover .fbox-icon i {
 	background-color: #333;
 	color: #FFF;
+	.dark & { background-color: lighten($body-bg-dark, 6.67); }
 }
 
-.fbox-effect.fbox-dark .fbox-icon i:after { box-shadow: 0 0 0 2px $theme-color; }
+.fbox-effect.fbox-dark .fbox-icon i:after,
+.dark .fbox-effect.fbox-dark .fbox-icon i:after  { box-shadow: 0 0 0 2px $theme-color; }
 
 .fbox-effect.fbox-dark .fbox-icon i:hover,
 .fbox-effect.fbox-dark:hover .fbox-icon i { background-color: $theme-color; }
@@ -618,6 +667,7 @@
 	background-position: center center;
 	background-size: 100% 100%;
 	@include transition(-webkit-transform 0.5s, opacity 0.5s, background-color 0.5s);
+	.dark & { box-shadow: 0 0 0 1px lighten($body-bg-dark, 6.67); }
 }
 
 .fbox-border.fbox-rounded.fbox-effect .fbox-icon i:after { @include border-radius(3px); }
@@ -635,9 +685,12 @@
 }
 
 .fbox-border.fbox-effect.fbox-dark .fbox-icon i:hover,
-.fbox-border.fbox-effect.fbox-dark:hover .fbox-icon i { box-shadow: 0 0 0 1px $theme-color; }
+.fbox-border.fbox-effect.fbox-dark:hover .fbox-icon i,
+.dark .fbox-border.fbox-effect.fbox-dark .fbox-icon i:hover,
+.dark .fbox-border.fbox-effect.fbox-dark:hover .fbox-icon i { box-shadow: 0 0 0 1px $theme-color; }
 
-.fbox-border.fbox-effect.fbox-dark .fbox-icon i:after { background-color: $theme-color; }
+.fbox-border.fbox-effect.fbox-dark .fbox-icon i:after,
+.dark .fbox-border.fbox-effect.fbox-dark .fbox-icon i:after { background-color: $theme-color; }
 
 .fbox-border.fbox-effect .fbox-icon i:hover:after,
 .fbox-border.fbox-effect:hover .fbox-icon i:after {
@@ -670,10 +723,14 @@
 
 .feature-box.media-box.fbox-bg .fbox-desc {
 	padding: 25px;
-	background-color: #FFF;
-	border: 1px solid #E5E5E5;
+	background-color: $body-bg;
+	border: 1px solid darken($white, 10.2%);
 	border-top: 0;
 	@include border-radius(0 0 5px 5px);
+	.dark & {
+		background-color: $body-bg-dark;
+		border-color: rgba($white,0.1);
+	}
 }
 
 .feature-box.media-box.fbox-bg .fbox-media img { @include border-radius(5px 5px 0 0); }

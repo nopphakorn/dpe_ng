@@ -5,6 +5,14 @@
 
 -----------------------------------------------------------------------------------*/
 
+@include media-breakpoint-down(lg) {
+	canvas {
+		max-width: 100%;
+		height: auto !important;
+	}
+}
+
+
 /* Infinity Scroll - Message Style
 -----------------------------------------------------------------*/
 
@@ -61,66 +69,66 @@
 .sm-form-control {
 	display: block;
 	width: 100%;
-	height: 38px;
-	padding: 8px 14px;
-	font-size: 15px;
-	line-height: 1.42857143;
-	color: #555555;
-	background-color: #ffffff;
+	min-height: 38px;
+	padding: $sm-form-padding;
+	font-size: $sm-form-font-size;
+	line-height: 1.42;
+	color: $sm-form-color;
+	background-color: $sm-form-background;
 	background-image: none;
-	border: 2px solid #DDD;
-	@include border-radius(0 !important);
+	border: $sm-form-border solid $sm-form-border-color;
+	@include border-radius($sm-form-border-radius !important);
 	@include transition(border-color ease-in-out .15s);
 
 	&:focus {
-		border-color: #AAA;
+		border-color: $sm-form-focus-color;
 		outline: 0;
 		-webkit-box-shadow: none;
 		box-shadow: none;
 	}
+	@include placeholder {
+		color: $sm-form-placeholder;
+		opacity: 1;
+	}
 }
-
-.sm-form-control::-moz-placeholder {
-	color: #999;
-	opacity: 1;
-}
-
-.sm-form-control:-ms-input-placeholder { color: #999; }
-.sm-form-control::-webkit-input-placeholder { color: #999; }
 
 .sm-form-control[disabled],
 .sm-form-control[readonly],
 fieldset[disabled] .sm-form-control {
   cursor: not-allowed;
-  background-color: #eeeeee;
+  background-color: darken($body-bg, 6.67);
   opacity: 1;
 }
 
-.sm-form-control { height: auto; }
-
-.form-control { @include border-radius(3px); }
+.form-control { @include border-radius($bs-form-control-radius); }
 
 .form-control:active,
 .form-control:focus {
-	border-color: #999;
+	border-color: $sm-form-placeholder;
 	box-shadow: none;
 }
 
 label {
 	display: inline-block;
-	font-size: 13px;
-	font-weight: 700;
+	font-size: $sm-form-label-size;
+	font-weight: $sm-form-label-weight;
 	font-family: $heading-font;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	color: #555;
-	margin-bottom: 10px;
+	text-transform: $sm-form-label-transform;
+	letter-spacing: $sm-form-label-spacing;
+	color: $sm-form-label-color;
+	margin-bottom: $sm-form-label-mb;
 	cursor: pointer;
+	.dark & {
+		color: darken($text-color-dark, 20%);
+	}
 
 	&.label-muted {
-		color: #999;
+		color: $sm-form-placeholder;
 		font-weight: normal;
 		margin-right: 5px;
+		.dark & {
+			color: darken($text-color-dark, 46.67);
+		}
 	}
 }
 
@@ -137,7 +145,10 @@ form {
 	.col_four_fifth,
 	.col_one_sixth,
 	.col_five_sixth {
-		margin-bottom: 25px;
+		margin-bottom: round($margin-base / 2);
+		@include media-breakpoint-down(sm) {
+			margin-bottom: round($margin-base / 2) !important;
+		}
 	}
 }
 
@@ -151,23 +162,33 @@ form {
 #contact-form-overlay-mini {
 	position: relative;
 	max-width: 800px;
-	background-color: #FFF;
+	background-color: $body-bg;
 	padding: 40px;
 	margin: 0 auto;
 	z-index: 10;
 	@include border-radius(4px);
 	box-shadow: 0 1px 10px rgba(0,0,0,0.15);
+
+	.dark & {
+		background-color: $body-bg-dark;
+	}
 }
 
 #contact-form-overlay-mini {
 	float: right;
 	width: 380px;
 	margin: 0;
+	@include media-breakpoint-down(md) {
+		float: none;
+		width: auto;
+		max-width: 380px;
+		margin: 0 auto;
+	}
 }
 
 label.error {
 	margin-top: 5px;
-	color: #E42C3E;
+	color: $sm-form-label-error;
 	font-weight: 400;
 }
 
@@ -178,7 +199,7 @@ label.error { display: none !important; }
 .form-control,
 .sm-form-control {
 	&.error {
-		border-color: #E42C3E;
+		border-color: $sm-form-label-error;
 	}
 }
 
@@ -302,7 +323,8 @@ blockquote {
 		font-size: 42px;
 		top: 0;
 		left: 0;
-		color: #EEE;
+		color: darken($body-bg, 6.67);
+		.dark & { color: rgba($white,0.1); }
 	}
 	&.blockquote-reverse {
 		&:before {
@@ -332,6 +354,7 @@ blockquote {
 	background-color: #444;
 	color: #FFF;
 	@include border-radius(2px);
+	.dark & { background-color: rgba($black,0.2); }
 }
 
 
@@ -342,8 +365,12 @@ blockquote {
 .top-advert {
 	float: right;
 	padding: 5px;
-	border-left: 1px solid #EEE;
-	border-right: 1px solid #EEE;
+	border-left: 1px solid darken($body-bg, 6.67);
+	border-right: 1px solid darken($body-bg, 6.67);
+	.dark & {
+		border-left-color: rgba($white,0.1);
+		border-right-color: rgba($white,0.1);
+	}
 	a,
 	img {
 		display: block;
@@ -356,6 +383,10 @@ blockquote {
 	margin-top: 2px;
 	padding-top: .3em;
 	text-transform: uppercase;
+	@include media-breakpoint-down(md) {
+		float: none;
+		display: inline-block;
+	}
 }
 
 .bnews-slider {
@@ -363,6 +394,14 @@ blockquote {
 	width: 970px;
 	margin-left: 20px;
 	min-height: 0;
+
+	@include media-breakpoint-only(lg) { width: 817px; }
+
+	@include media-breakpoint-down(md) {
+		float: none;
+		margin: 10px 0 0;
+		width: 100%;
+	}
 }
 
 /* ----------------------------------------------------------------
@@ -386,22 +425,27 @@ blockquote {
 	display: none;
 	z-index: 299;
 	position: fixed;
-	width: 40px;
-	height: 40px;
-	background-color: #333;
-	background-color: rgba(0,0,0,0.3);
-	font-size: 20px;
-	line-height: 36px;
+	width: $gotoTop-size;
+	height: $gotoTop-size;
+	background-color: $gotoTop-bg;
+	font-size: $gotoTop-icon-size;
+	line-height: $gotoTop-size - 2;
 	text-align: center;
-	color: #FFF;
+	color: $gotoTop-icon-color;
 	top: auto;
 	left: auto;
-	right: 30px;
-	bottom: 50px;
 	cursor: pointer;
-	@include border-radius(2px);
+	@include align-position($gotoTop-position-boxed);
+	@include border-radius($gotoTop-border-radius);
 	&:hover {
-		background-color: $theme-color;
+		background-color: $gotoTop-hover-color;
+	}
+	@include media-breakpoint-down(sm) {
+		@if $gotoTop-hidden-sm == true {
+			display: none !important;
+		} @else {
+			display: block !important;
+		}
 	}
 }
 
@@ -415,7 +459,7 @@ body {
 
 .stretched {
 	#gotoTop {
-		bottom: 30px;
+		@include align-position($gotoTop-position);
 	}
 }
 
@@ -427,9 +471,13 @@ body {
 	display: block;
 	font-size: 216px;
 	font-weight: 700;
-	color: #DDD;
+	color: darken($body-bg, 13.33);
 	line-height: 1.35;
 	letter-spacing: 4px;
+	@include media-breakpoint-down(md) { font-size: 180px; }
+	@include media-breakpoint-only(sm) { font-size: 160px; }
+	@include media-breakpoint-down(xs) { font-size: 120px; }
+	.dark & { color: rgba($white,0.15); }
 }
 .error404-wrap {
 	.container {
@@ -456,6 +504,9 @@ body {
 	form {
 		max-width: 500px;
 	}
+	@at-root.dark#{&} .form-control {
+		@include placeholder { color: darken($text-color-dark, 40%); }
+	}
 }
 
 /* ----------------------------------------------------------------
@@ -477,6 +528,17 @@ body {
 	bottom: -154px;
 	background-color: rgba(0,0,0,0.6);
 	@include border-radius(3px 3px 0 0);
+	@include media-breakpoint-only(lg) { bottom: -142px; }
+	@include media-breakpoint-down(md) {
+		position: absolute;
+		width: 100%;
+		max-width: 400px;
+		right: auto;
+		left: 50%;
+		margin-left: -200px;
+		bottom: 0;
+	}
+	@include media-breakpoint-down(xs) { margin-left: -155px; }
 }
 
 .landing-video {
@@ -485,6 +547,24 @@ body {
 	height: 315px;
 	margin: 22px 0 0 95px;
 	overflow: hidden;
+	@include media-breakpoint-only(lg) {
+		width: 465px;
+		height: 262px;
+		margin: 19px 0 0 75px;
+	}
+	@include media-breakpoint-only(md) {
+		width: 352px;
+		height: 199px;
+		margin: 14px 0 0 60px;
+	}
+
+	@include media-breakpoint-down(sm) {
+		position: relative;
+		top: 14px;
+		width: 76%;
+		height: auto;
+		margin: 19px auto 0;
+	}
 }
 
 .landing-promo {
@@ -501,6 +581,17 @@ body {
 	}
 }
 
+@include media-breakpoint-only(lg) {
+	.col_one_third {
+		.landing-wide-form {
+			padding: 36px 30px;
+			.heading-block {
+				h2 { font-size: 32px; }
+				span { font-size: 17px; }
+			}
+		}
+	}
+}
 /* ----------------------------------------------------------------
 	Preloaders
 -----------------------------------------------------------------*/
@@ -511,16 +602,22 @@ body {
 	display: block;
 	width: 100%;
 	height: 100%;
-	background: url("images/preloader.gif") center center no-repeat #FFF;
+	background-color: $body-bg;
+	@include background-image($preloader-image-path, $preloader-image, $preloader-fallback-extension, 24px 24px, true, true);
+	background-repeat: no-repeat;
+	background-position: center center;
 }
-.preloader2 {
-	background-color: transparent;
-}
+.preloader2 { background-color: transparent; }
 .form-process {
 	display: none;
 	position: absolute;
 	z-index: 3;
-	background-color: rgba(255,255,255,0.7);
+	background-color: $form-processor-bg;
+}
+
+.dark {
+	.preloader { background-color: rgba($black,0.2); }
+	.form-process { background-color: transparent; }
 }
 
 /* ----------------------------------------------------------------
@@ -591,30 +688,30 @@ button {
 }
 
 .toast-top-full-width {
-	top: 10px;
+	top: $toastr-position-gutter;
 	right: 0;
 	width: 100%;
 }
 .toast-bottom-full-width {
-	bottom: 10px;
+	bottom: $toastr-position-gutter;
 	right: 0;
 	width: 100%;
 }
 .toast-top-left {
-	top: 12px;
-	left: 12px;
+	top: $toastr-position-gutter;
+	left: $toastr-position-gutter;
 }
 .toast-top-right {
-	top: 12px;
-	right: 12px;
+	top: $toastr-position-gutter;
+	right: $toastr-position-gutter;
 }
 .toast-bottom-right {
-	right: 12px;
-	bottom: 12px;
+	right: $toastr-position-gutter;
+	bottom: $toastr-position-gutter;
 }
 .toast-bottom-left {
-	bottom: 12px;
-	left: 12px;
+	bottom: $toastr-position-gutter;
+	left: $toastr-position-gutter;
 }
 #toast-container {
 	position: fixed;
@@ -668,19 +765,19 @@ button {
 }
 
 .toast {
-	background-color: #030303;
+	background-color: lighten($black-color, 1.18%);
 }
 .toast-success {
-	background-color: #51a351;
+	background-color: $success;
 }
 .toast-error {
-	background-color: #bd362f;
+	background-color: $danger;
 }
 .toast-info {
-	background-color: #2f96b4;
+	background-color: $info;
 }
 .toast-warning {
-	background-color: #f89406;
+	background-color: $warning;
 }
 
 .toast-progress {
@@ -688,7 +785,7 @@ button {
 	left: 0;
 	bottom: 0;
 	height: 4px;
-	background-color: #000000;
+	background-color: $black-color;
 	opacity: 0.4;
 	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
 	filter: alpha(opacity=40);
@@ -740,6 +837,8 @@ button {
 	line-height: 1;
 	font-size: 80px;
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
+	@include media-breakpoint-down(md) { font-size: 60px; }
+	@include media-breakpoint-down(sm) { font-size: 48px; }
 	.first-name,
 	.last-name,
 	.and {
@@ -750,6 +849,11 @@ button {
 		text-transform: uppercase;
 		font-family: $heading-font;
 		letter-spacing: 2px;
+		@include media-breakpoint-down(sm) {
+			display: block;
+			margin: 0 0 15px;
+			text-align: center;
+		}
 	}
 	.last-name {
 		margin: 0 0 0 15px;
@@ -764,10 +868,14 @@ button {
 		font-style: italic;
 		font-family: $secondary-font;
 		text-transform: none;
+		@include media-breakpoint-down(md) { font-size: 40px; }
+		@include media-breakpoint-down(sm) { font-size: 36px; }
 	}
 	.and {
 		margin: 0;
 		font-size: 200px;
 		font-family: 'Times New Roman', serif;
+		@include media-breakpoint-down(md) { font-size: 144px; }
+		@include media-breakpoint-down(sm) { font-size: 120px; }
 	}
 }

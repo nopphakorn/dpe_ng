@@ -17,87 +17,33 @@
 	li {
 		float: left;
 		position: relative;
-		width: 20%;
-		padding: 20px 0;
+		width: 100% / $clients-grid-deafult-grid;
+		@include media-breakpoint-down(sm) {
+			width: 100% / $clients-grid-display-sm;
+		}
+		padding: $clients-grid-padding 0;
 		-webkit-backface-visibility: hidden;
-	}
-}
 
-.clients-grid {
-	&.grid-2 {
-		li {
-			width: 50%;
-			padding: 25px 0;
-		}
-	}
-	&.grid-3 {
-		li {
-			width: 33.33%;
-		}
-	}
-	&.grid-4 {
-		li {
-			width: 25%;
-		}
-	}
-	&.grid-6 {
-		li {
-			width: 16.66%;
-		}
-	}
-	li {
-		a {
-			opacity: 0.6;
-			&:hover {
-				opacity: 1;
-			}
-		}
-	}
-}
-body {
-	&:not(.device-touch) {
-		.clients-grid {
-			li {
-				a {
-					@include transition(all .5s ease);
-				}
-			}
+		&:before,
+		&:after {
+			content: '';
+			position: absolute;
 		}
 	}
 }
 
-.clients-grid li a,
-.clients-grid li img {
-	display: block;
-	width: 75%;
-	margin-left: auto;
-	margin-right: auto;
-}
+.clients-grid li a img { width: 100%; }
 
-.clients-grid {
-	li {
-		a {
-			img {
-				width: 100%;
-			}
-		}
-	}
-}
-
-.clients-grid li:before,
-.clients-grid li:after,
-.testimonials-grid li:before,
-.testimonials-grid li:after {
-	content: '';
-	position: absolute;
-}
 
 .clients-grid li:before,
 .testimonials-grid li:before {
 	height: 100%;
 	top: 0;
-	left: -1px;
-	border-left: 1px dashed #DDD;
+	left: -$clients-grid-border-size;
+	border-left: $clients-grid-border-size $clients-grid-border-style $clients-grid-border-color;
+	.dark & {
+		border-left-color: rgba($white,0.15);
+	}
 }
 
 .clients-grid li:after,
@@ -106,6 +52,47 @@ body {
 	height: 0;
 	top: auto;
 	left: 0;
-	bottom: -1px;
-	border-bottom: 1px dashed #DDD;
+	bottom: -$clients-grid-border-size;
+	border-bottom: $clients-grid-border-size $clients-grid-border-style $clients-grid-border-color;
+	.dark & {
+		border-bottom-color: rgba($white,0.15);
+	}
+}
+
+.clients-grid {
+	li {
+		a,
+		img {
+			display: block;
+			width: 75%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		a {
+			opacity: $clients-img-opacity;
+			&:hover {
+				opacity: 1;
+			}
+			body:not(.device-touch) & {
+				@include transition(all .5s ease);
+			}
+		}
+	}
+	@include grid-size($clients-grid-total-columns, li);
+	@include media-breakpoint-down(sm) {
+		@for $grid-img from 1 through $clients-grid-total-columns {
+			@at-root.grid-#{$grid-img}#{&} li {
+				width: 100% / $clients-grid-display-sm;
+			}
+		}
+	}
+	&.grid-2 {
+		li {
+			padding: round($clients-grid-padding * 1.25) 0;
+			@include media-breakpoint-down(sm) {
+				width: 50%;
+			}
+		}
+	}
 }

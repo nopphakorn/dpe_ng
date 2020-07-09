@@ -5,14 +5,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 const routes: Routes = [
-  { path: '', component: ExampleComponent },
+  { path: '', component: HomeComponent },
   // { path: 'home', component: PagesComponent,
   //   children:[
   //     { path: '', component: HomeComponent, pathMatch:'full'},
       
   //   ] 
   // },
-  { path: 'home/:id', component: HomeComponent,
+  { path: 'home', component: HomeComponent,
   },
   { path: 'about/:id', component: AboutComponent,
   },

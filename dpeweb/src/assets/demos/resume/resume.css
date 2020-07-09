@@ -1,20 +1,15 @@
 /* ----------------------------------------------------------------
-	Canvas: Resume
+	Canvas: Resume Demo
+	Version: 1.0
 -----------------------------------------------------------------*/
-
-#header {
-	z-index: 299;
-}
-
-.menu-container > .menu-item > .menu-link i {
-	display: none;
-}
 
 @media (min-width: 992px) {
 
-	.menu-container > .menu-item:not(:first-child) { margin-left: 17px; }
+	#primary-menu ul > li { margin-left: 17px; }
 
-	.menu-container > .menu-item > .menu-link {
+	#primary-menu > ul > li:first-child { margin-left: 0; }
+
+	#primary-menu ul li > a {
 		width: 50px;
 		height: 50px;
 		line-height: 50px;
@@ -31,7 +26,7 @@
 		transition: all .3s ease;
 	}
 
-	.menu-container > .menu-item > .menu-link div {
+	#primary-menu ul li > a div {
 		opacity: 0;
 		position: absolute;
 		text-align: center;
@@ -55,7 +50,7 @@
 		text-shadow: 0 0px 7px rgba(0,0,0,0.4), 0 0px 7px rgba(0,0,0,0.2);
 	}
 
-	.menu-container > .menu-item > .menu-link:hover div {
+	#primary-menu ul li > a:hover div {
 		opacity: 1 !important;
 		-webkit-transition: -webkit-transform 1.2s, opacity 1.2s;
 		transition: transform 1.2s, opacity 1.2s;
@@ -65,7 +60,7 @@
 		transform: translate3d(-50%, -10px, 0);
 	}
 
-	.menu-container > .menu-item > .menu-link i {
+	#primary-menu ul li > a i {
 		display: block;
 		position: relative;
 		font-size: 16px;
@@ -78,8 +73,8 @@
 		border-radius: 50%;
 	}
 
-	.menu-container > .menu-item:hover > .menu-link,
-	.menu-container > .menu-item.current > .menu-link {
+	#primary-menu ul li:hover > a,
+	#primary-menu ul li.current > a {
 		background-color: #7B6ED6;
 		color: #FFF !important;
 	}
@@ -89,7 +84,7 @@
 		box-shadow: none;
 	}
 
-	#header.sticky-header.transparent-header.sticky-transparent #header-wrap .primary-menu ul li > a div { opacity: 0; }
+	#header.sticky-header.transparent-header.sticky-transparent #header-wrap #primary-menu ul li > a div { opacity: 0; }
 
 	#logo a {
 		color: #FFF;
@@ -278,7 +273,7 @@
 
 .entry .entry-title { margin-top: 13px; }
 
-.entry::after { display: none; }
+.entry:after { display: none; }
 
 .post-grid .entry-image img {
 	border-top-left-radius: 4px;
@@ -307,6 +302,6 @@
 	font-size: 12px;
 }
 
-.dark .progress-percent::after,
-.dark .progress-percent::before { border-top-color: #FFF !important; }
+.dark .progress-percent:after,
+.dark .progress-percent:before { border-top-color: #FFF !important; }
 

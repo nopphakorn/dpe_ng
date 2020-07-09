@@ -11,7 +11,7 @@
 
 .widget {
 	position: relative;
-	margin-top: 50px;
+	margin-top: $margin-base;
 	&:first-child {
 		margin-top: 0;
 	}
@@ -21,17 +21,37 @@
 		font-weight: 600;
 		letter-spacing: 2px;
 		text-transform: uppercase;
+
+		.dark & {color: darken($text-color-dark, 6.67%);}
 	}
 	p {
 		line-height: 1.7;
 		&:not(.lead) { font-size: 14px; }
+		.dark & {opacity: .8;}
 	}
 }
 
 .sidebar-widgets-wrap {
+	@include media-breakpoint-only(md) {
+		position: relative;
+		margin: 0 -20px -40px -20px;
+	}
 	.widget {
-		padding-top: 50px;
-		border-top: 1px solid #EEE;
+		padding-top: $margin-base;
+		border-top: $widget-border;
+		.dark & { border-top-color: rgba($white,0.1); }
+		@include media-breakpoint-only(md) {
+			display: inline-block;
+			vertical-align: top;
+			float: none;
+			width: 49.6%;
+			margin: 0 0 40px 0;
+			padding-top: 0;
+			padding-left: 20px;
+			padding-right: 20px;
+			border-top: 0;
+			.dark & { border-top-color: rgba($white,0.1); }
+		}
 		&:first-child {
 			padding-top: 0;
 			border-top: 0;
@@ -53,13 +73,23 @@
 		margin-right: 4px;
 		margin-bottom: 4px;
 		padding: 3px 6px;
-		border: 1px solid #E5E5E5;
+		border: 1px solid darken($body-bg, 10.20);
 		font-size: 13px !important;
-		color: #666;
+		color: lighten($text-color, 13.33);
 		@include border-radius(2px);
+		.dark & {
+			color: darken($text-color-dark, 33.33);
+			border-color: transparent;
+			background-color: rgba($black,0.2);
+		}
 		&:hover {
 			border-color: $theme-color !important;
 			color: $theme-color !important;
+			.dark & {
+				border-color: transparent !important;
+				background-color: $theme-color;
+				color: #FFF !important;
+			}
 		}
 	}
 }
@@ -120,13 +150,18 @@ body {
 		a {
 			display: inline-block;
 			padding: 0 3px 0 12px;
-			background: url("images/icons/widget-link.png") left top no-repeat;
 			border: none !important;
-			color: #444;
+			color: $text-color;
 			font-size: 14px;
-			&:hover {
-				color: #000;
+			@include background-image($footer-widgets-path,$footer-widgets-nav-icons, $footer-widgets-img-extension, 4px 20px,true, true);
+			background-repeat: no-repeat;
+			background-position: left top;
+			&:hover { color: $black; }
+			.dark & {
+				color: darken($text-color-dark, 13.33);
+				&:hover { color: darken($text-color-dark, 26.67%); }
 			}
+
 		}
 	}
 }
@@ -134,7 +169,9 @@ body {
 .widget_recent_comments {
 	li {
 		display: block;
-		background: url("images/icons/widget-comment.png") left top no-repeat;
+		@include background-image($footer-widgets-path,$footer-widgets-comments-icons,$footer-widgets-img-extension, 15px 26px,true,true);
+		background-repeat: no-repeat;
+		background-position: left top;
 		padding: 4px 0 4px 20px;
 		a {
 			display: inline;
@@ -214,10 +251,10 @@ body {
 			.testi-image {
 				margin-right: 10px;
 				i {
-					background-color: #EEE;
+					background-color: darken($body-bg, 6.67%);
 					line-height: 28px;
 					font-size: 14px;
-					color: #888;
+					color: lighten($text-color, 26.67);
 				}
 			}
 		}
@@ -273,7 +310,7 @@ blockquote {
 	padding: 10px 20px;
 	margin: 0 0 20px;
 	font-size: 17px;
-	border-left: 5px solid #EEE;
+	border-left: 5px solid darken($body-bg, 6.67%);
 	.float-left {
 		max-width: 300px;
 		margin: 5px 20px 10px 0;
@@ -284,7 +321,7 @@ blockquote {
 .blockquote-reverse {
 	padding-right: 15px;
 	padding-left: 0;
-	border-right: 5px solid #EEE;
+	border-right: 5px solid darken($body-bg, 6.67%);
 	border-left: 0;
 	text-align: right;
 }
@@ -358,7 +395,7 @@ blockquote {
 
 .widget-filter-links li a {
 	display: block;
-	color: #444;
+	color: $text-color;
 	font-family: $heading-font;
 	font-weight: 500;
 }
@@ -373,19 +410,19 @@ blockquote {
 	height: 22px;
 	line-height: 22px;
 	text-align: center;
-	color: #777;
-	background-color: #EEE;
+	color: lighten($text-color, 20%);
+	background-color: darken($body-bg, 6.67%);
 	border-radius: 50%;
 }
 
-.widget-filter-links li:hover a { color: #777; }
+.widget-filter-links li:hover a { color: lighten($text-color, 20%); }
 
 .widget-filter-links li.active-filter a { font-weight: 700; }
 
 .widget-filter-links li.active-filter span {
 	color: #FFF;
 	background-color: $theme-color;
-	text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+	text-shadow: 1px 1px 1px rgba($black,0.1);
 }
 
 /* Navigation Tree
@@ -406,12 +443,13 @@ blockquote {
 		a {
 			display: block;
 			padding: 8px 0;
-			color: #333;
+			color: darken($text-color, 6.67);
 			text-transform: uppercase;
 			font-size: 13px;
 			font-weight: 700;
 			letter-spacing: 2px;
 			font-family: $heading-font;
+			.dark & { color: darken($text-color-dark, 20%); }
 		}
 		i {
 			font-size: 14px;

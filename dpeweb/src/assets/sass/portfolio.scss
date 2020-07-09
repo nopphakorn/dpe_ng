@@ -12,12 +12,26 @@
 	position: relative;
 	margin: 0 0 40px 0;
 	list-style: none;
-	border: 1px solid rgba(0,0,0,0.07);
+	border: $portfolio-filter-border solid $portfolio-filter-border-color;
+	.dark & { border-color: rgba($white,0.08); }
 	float: left;
 	border-radius: 4px;
+	@include media-breakpoint-down(sm) {
+		border: 0;
+		border-top: $portfolio-filter-border solid $portfolio-filter-border-color;
+		border-left: $portfolio-filter-border solid $portfolio-filter-border-color;
+		@include border-radius(0);
+		@if $portfolio-shuffle-hidden-sm == false { margin: 0 0 20px 0; }
+	}
 	li {
 		float: left;
 		position: relative;
+		@include media-breakpoint-down(sm) {
+			width: 100% / $portfolio-filter-grid-sm;
+			border-right: $portfolio-filter-border solid $portfolio-filter-border-color;
+			border-bottom: $portfolio-filter-border solid $portfolio-filter-border-color;
+		}
+		@include media-breakpoint-down(xs) { width: 100% / $portfolio-filter-grid-xs; }
 		a {
 			display: block;
 			position: relative;
@@ -25,8 +39,21 @@
 			font-size: 13px;
 			line-height: 15px;
 			color: #666;
-			border-left: 1px solid rgba(0,0,0,0.07);
-			&:hover { color: $theme-color; }
+			border-left: $portfolio-filter-border solid $portfolio-filter-border-color;
+			.dark & {
+				color: darken($text-color-dark, 33.33%);
+				border-left-color: rgba($white,0.08);
+			}
+			@include media-breakpoint-down(sm) {
+				text-align: center;
+				border-left: none;
+				padding: 12px 18px !important;
+				@include border-radius(0  !important);
+			}
+			&:hover {
+				color: $theme-color;
+				.dark & { color: $text-color-dark; }
+			}
 		}
 		&:first-child {
 			a {
@@ -43,9 +70,11 @@
 			a {
 				color: #FFF !important;
 				background-color: $theme-color;
-				margin: -1px 0;
+				margin: -$portfolio-filter-border 0;
 				padding: 13px 18px;
 				font-weight: bold;
+				@include media-breakpoint-down(sm) { margin: 0; }
+				.dark & { color: $white; }
 			}
 		}
 	}
@@ -104,7 +133,7 @@
 /* Portfolio - Filter: Style 3
 -----------------------------------------------------------------*/
 
-.portfolio-filter.style-3 li a { border: 1px solid transparent; }
+.portfolio-filter.style-3 li a { border: $portfolio-filter-border solid transparent; }
 
 .portfolio-filter.style-3 li.activeFilter a {
 	color: $theme-color !important;
@@ -168,19 +197,42 @@
 	float: right;
 	width: 41px;
 	height: 41px;
-	border: 1px solid rgba(0,0,0,0.07);
+	border: $portfolio-filter-border solid $portfolio-filter-border-color;
 	font-size: 14px;
 	text-align: center;
-	line-height: 41px;
+	line-height: 41 - ($portfolio-filter-border * 2);
 	color: #333;
 	border-radius: 4px;
 	cursor: pointer;
 	@include transition(all 0.2s linear);
 
+	.dark & {
+		color: darken($text-color-dark, 33.33%);
+		border-left-color: rgba($white,0.08);
+	}
+
+	@include media-breakpoint-down(sm) {
+		@if $portfolio-shuffle-hidden-sm == true {
+			display: none;
+		} @else {
+			float: left;
+		    display: block;
+		    min-width: 100%;
+		    margin: 0 auto 40px;
+	 	}
+	}
+
+	.bothsidebar & {
+		@include media-breakpoint-only(lg) {
+			display: none;
+		}
+	}
+
 	&:hover {
 		background-color: $theme-color;
-		color: #FFF;
+		color: $white;
 		text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+		.dark & { color: $white; }
 	}
 }
 
@@ -190,6 +242,17 @@
 .portfolio {
 	position: relative;
 	margin: 0 (-$portfolio-4-margin) (-$portfolio-4-margin) 0;
+	@include media-breakpoint-down(md) {
+		margin: 0 (-$portfolio-item-4-md-margin) (-$portfolio-item-4-md-margin) 0;
+	}
+	&:not(.portfolio-1) {
+		@include media-breakpoint-only(sm) {
+			margin: 0 (-$portfolio-item-4-sm-margin) (-$portfolio-item-4-sm-margin) 0;
+		}
+		@include media-breakpoint-down(xs) {
+			margin: 0;
+		}
+	}
 }
 
 body {
@@ -215,6 +278,20 @@ body {
 	width: 25%;
 	height: auto;
 	padding: 0 $portfolio-4-margin $portfolio-4-margin 0;
+	@include media-breakpoint-down(md) {
+		width: 100% / $portfolio-item-4-md-grid;
+		padding: 0 $portfolio-item-4-md-margin $portfolio-item-4-md-margin 0;
+	}
+	@include media-breakpoint-only(sm) {
+		&:not(.portfolio-1) {
+			width: 100% / $portfolio-item-4-sm-grid;
+			padding: 0 $portfolio-item-4-sm-margin $portfolio-item-4-sm-margin 0;
+		}
+	}
+	@include media-breakpoint-down(xs) {
+		width: 100%;
+		padding: 0;
+	}
 	.portfolio-image {
 		position: relative;
 		overflow: hidden;
@@ -249,10 +326,17 @@ body {
 		margin: 0;
 		padding: 0;
 		font-size: 19px;
+		@include media-breakpoint-only(sm) {
+			.portfolio:not(.portfolio-1) & {
+				font-size: 16px;
+			}
+		}
 		a {
 			color: #222;
+			.dark & { color: $text-color-dark; }
 			&:hover {
 				color: $theme-color;
+				.dark & { color: darken($text-color-dark, 20%); }
 			}
 		}
 	}
@@ -260,10 +344,15 @@ body {
 		display: block;
 		margin-top: 3px;
 		color: #888;
+		@include media-breakpoint-only(sm) {
+			.portfolio:not(.portfolio-1) & {
+			font-size: 14px; }
+		}
 		a {
 			color: #888;
 			&:hover {
 				color: #000;
+				.dark & { color: darken($text-color-dark, 13.33%); }
 			}
 		}
 	}
@@ -279,8 +368,13 @@ body {
 		top: auto;
 		bottom: -79px;
 		left: 0;
-		background-color: #FFF;
-		border-bottom: 1px solid #EEE;
+		background-color: $body-bg;
+		border-bottom: 1px solid darken($body-bg, 6.67%);
+
+		.dark & {
+			background-color: darken($body-bg-dark, 1.96%);
+			border-bottom: 1px solid rgba($white,0.08);
+		}
 	}
 }
 
@@ -421,6 +515,9 @@ body {
 	}
 	.portfolio-item {
 		padding: 0;
+		@include media-breakpoint-only(lg) {
+			width: 50%;
+		}
 	}
 	.portfolio-desc {
 		display: none !important;
@@ -434,6 +531,9 @@ body {
 .portfolio {
 	&.portfolio-3 {
 		margin: 0 (-$portfolio-3-margin) (-$portfolio-3-margin) 0;
+		@include media-breakpoint-down(md) {
+			margin: 0 (-$portfolio-item-3-md-margin) (-$portfolio-item-3-md-margin) 0;
+		}
 	}
 }
 
@@ -441,6 +541,10 @@ body {
 	.portfolio-item {
 		width: 33.33333333%;
 		padding: 0 $portfolio-3-margin $portfolio-3-margin 0;
+		@include media-breakpoint-down(md) {
+			width: 100% / $portfolio-item-3-md-grid;
+			padding: 0 $portfolio-item-3-md-margin $portfolio-item-3-md-margin 0;
+		}
 	}
 }
 
@@ -493,12 +597,17 @@ body {
 .bothsidebar {
 	.portfolio {
 		&.portfolio-3 {
-			margin: 0 (-$portfolio-3-margin)-bs (-$portfolio-3-margin)-bs 0;
+			margin: 0 (-$portfolio-3-margin-bs) (-$portfolio-3-margin-bs) 0;
+			@include media-breakpoint-only(lg) {
+				margin: 0 (-$portfolio-2-margin-bs) (-$portfolio-2-margin-bs) 0;
+			}
 		}
 	}
 	.portfolio-3 {
 		.portfolio-item {
 			padding: 0 $portfolio-3-margin-bs $portfolio-3-margin-bs 0;
+
+			@include media-breakpoint-only(lg) { padding: 0 $portfolio-2-margin-bs $portfolio-2-margin-bs 0; }
 		}
 		.portfolio-desc {
 			display: block !important;
@@ -546,12 +655,19 @@ body {
 .portfolio {
 	&.portfolio-2 {
 		margin: 0 (-$portfolio-2-margin) (-$portfolio-2-margin) 0;
+		@include media-breakpoint-down(md) {
+			margin: 0 (-$portfolio-item-2-md-margin) (-$portfolio-item-2-md-margin) 0;
+		}
 	}
 }
 .portfolio-2 {
 	.portfolio-item {
 		width: 50%;
 		padding: 0 $portfolio-2-margin $portfolio-2-margin 0;
+		@include media-breakpoint-down(md) {
+			width: 100% / $portfolio-item-2-md-grid;
+			padding: 0 $portfolio-item-2-md-margin $portfolio-item-2-md-margin 0;
+		}
 	}
 	.portfolio-desc {
 		padding: 20px 5px 10px;
@@ -868,12 +984,21 @@ body {
 		margin: 0 0 40px 0;
 		padding-bottom: 40px;
 		padding-right: 0;
-		border-bottom: 1px solid #EEE;
+		border-bottom: 1px solid darken($body-bg, 6.67%);
+		.dark & { border-bottom-color: rgba($white,0.08); }
+		@include media-breakpoint-down(md) {
+			width: 100%;
+		}
 		.portfolio-image {
 			float: left;
 			margin-right: 0;
 			width: 65%;
 			height: auto;
+			@include media-breakpoint-down(md) {
+				float: none !important;
+				margin: 0 !important;
+				margin-bottom: 20px !important;
+			}
 		}
 		&.alt .portfolio-image {
 			float: right;
@@ -884,6 +1009,10 @@ body {
 		float: left;
 		width: 35%;
 		padding: 10px 0 10px 40px;
+		@include media-breakpoint-down(md) {
+			width: 100% !important;
+			padding: 0 !important;
+		}
 		h3 { font-size: 22px; }
 		span {
 			margin-top: 6px;
@@ -906,7 +1035,20 @@ body {
 /* Portfolio - Items - 1 Column - Both Sidebar
 -----------------------------------------------------------------*/
 
-.bothsidebar .portfolio-1 .iconlist { display: block !important; }
+.portfolio-1 {
+	.iconlist {
+		.bothsidebar & {
+			display: block !important;
+		}
+		.postcontent & {
+			@include media-breakpoint-only(lg) {
+				display: none;
+			}
+		}
+	}
+}
+
+
 
 .bothsidebar .portfolio-1 .portfolio-item { width: 100% !important; }
 
@@ -965,11 +1107,20 @@ body {
 				float: none;
 				width: 100%;
 				margin: 0 !important;
+				@include media-breakpoint-down(md) {
+					margin: 0 0 20px 0 !important;
+					img {
+						@include transition(none);
+					}
+				}
 			}
 			&:hover {
 				.portfolio-image {
 					img {
 						@include translateX(-60px);
+						@include media-breakpoint-down(md) {
+							@include translateX(0);
+						}
 					}
 				}
 				.portfolio-desc {
@@ -981,6 +1132,9 @@ body {
 					.portfolio-image {
 						img {
 							@include translateX(60px);
+							@include media-breakpoint-down(md) {
+								@include translateX(0);
+							}
 						}
 					}
 					.portfolio-desc {
@@ -995,10 +1149,11 @@ body {
 			width: 35%;
 			height: 100%;
 			padding: 30px;
-			background-color: #F9F9F9;
+			background-color: darken($body-bg, 2.35%);
 			top: 0;
 			left: auto;
 			right: -35%;
+			.dark & { background-color: darken($body-bg-dark, 1.96%); }
 		}
 	}
 }
@@ -1076,6 +1231,37 @@ body {
 	}
 }
 
+@include media-breakpoint-down(md) {
+	.portfolio-1 .portfolio-item .portfolio-image,
+	.portfolio-1 .portfolio-item .portfolio-image a,
+	.portfolio-1 .portfolio-item .portfolio-image img,
+	.portfolio-1.portfolio-fullwidth .portfolio-item .portfolio-image,
+	.portfolio-1.portfolio-fullwidth .portfolio-item .portfolio-image a,
+	.portfolio-1.portfolio-fullwidth .portfolio-item .portfolio-image img {
+		width: 100%;
+		height: auto;
+	}
+
+	.portfolio-1.portfolio-fullwidth .portfolio-desc,
+	.portfolio-1.portfolio-fullwidth .alt .portfolio-desc {
+		position: relative;
+		height: auto;
+		background-color: transparent;
+		left: 0 !important;
+		right: 0 !important;
+		-webkit-transition: none;
+		-o-transition: none;
+		transition: none;
+	}
+
+	.portfolio-1.portfolio-fullwidth .portfolio-overlay a { left: 50% !important; }
+
+	.portfolio-1.portfolio-fullwidth .alt .portfolio-overlay a {
+		left: auto;
+		right: 50% !important;
+	}
+}
+
 /* Portfolio - Parallax
 -----------------------------------------------------------------*/
 
@@ -1114,6 +1300,9 @@ body {
 			text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
 			padding: 0;
 			opacity: 0;
+			@include media-breakpoint-down(md) {
+				@at-root .device-touch #{&} { opacity: 1; }
+			}
 			h3 {
 				font-size: 44px;
 				font-weight: 300;
@@ -1150,6 +1339,9 @@ body {
 		}
 		.portfolio-overlay {
 			background-color: rgba(0,0,0,0.4);
+			@include media-breakpoint-down(md) {
+				@at-root .device-touch #{&} { opacity: 1; }
+			}
 		}
 	}
 }
@@ -1187,7 +1379,7 @@ body {
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		background-color: #F5F5F5;
+		background-color: darken($body-bg, 3.92%);
 		width: 40px !important;
 		height: 40px !important;
 		margin: -28px 0 0 -44px;
@@ -1197,7 +1389,9 @@ body {
 		color: #444;
 		border-radius: 50%;
 		-webkit-backface-visibility: hidden;
-		&.left-icon {
+		.dark & {
+			background-color: rgba($black,0.5);
+			color: #FFF;
 		}
 		&.right-icon {
 			left: auto;
@@ -1213,6 +1407,9 @@ body {
 		&:hover {
 			color: $theme-color;
 			background-color: #EEE;
+			.dark & {
+				background-color: rgba($black,0.7);
+			}
 		}
 		i {
 			&.icon-line-play {
@@ -1264,11 +1461,22 @@ body {
 			top: 0;
 			left: 0;
 			margin: 20px 0 0 !important;
+			@include media-breakpoint-only(sm) {
+				.portfolio:not(.portfolio-1) .portfolio-item:hover & {
+					margin: 20px 0 0 !important;
+				}
+			}
 			&.right-icon {
 				left: 0;
 				right: 0;
 				margin-left: 5px !important;
 				margin-right: 0 !important;
+				@include media-breakpoint-only(sm) {
+					.portfolio:not(.portfolio-1) .portfolio-item:hover & {
+						margin-left: 5px !important;
+						margin-right: 0 !important;
+					}
+				}
 			}
 		}
 	}
@@ -1303,6 +1511,12 @@ body {
 .iportfolio:hover .portfolio-overlay a.left-icon,
 .iportfolio:hover .portfolio-overlay a.right-icon {
 	margin-top: -18px;
+	@include media-breakpoint-only(sm) {
+		.portfolio-notitle:not(.portfolio-1) &,
+		.portfolio-notitle .iportfolio:hover & {
+			margin-top: -55px;
+		}
+	}
 }
 
 body {
@@ -1341,6 +1555,11 @@ body {
 	height: 600px;
 	overflow: hidden;
 	margin: -80px 0 80px !important;
+	@include media-breakpoint-only(lg) {
+		&.portfolio-single-thumbs {
+			height: 400px;
+		}
+	}
 }
 
 .portfolio-single-video { height: auto !important; }
@@ -1354,6 +1573,9 @@ body {
 		width: 100%;
 		height: 600px;
 		background-color: #333;
+		@include media-breakpoint-only(lg) {
+			height: 400px;
+		}
 	}
 	.swiper-slide {
 		overflow: hidden;
@@ -1432,9 +1654,13 @@ body {
 }
 
 .ajax-modal-title {
-	background-color: #F9F9F9;
-	border-bottom: 1px solid #EEE;
+	background-color: darken($body-bg, 2.35);
+	border-bottom: 1px solid darken($body-bg, 6.67%);
 	padding: 25px 40px;
+	.dark & {
+		background-color: darken($body-bg-dark, 1.96%);
+		border-bottom-color: rgba($white,0.08);
+	}
 	h2 {
 		font-size: 26px;
 		margin-bottom: 0;
@@ -1469,6 +1695,7 @@ body {
 	li {
 		margin: 10px 0;
 		color: #666;
+		.dark & { color: darken($text-color-dark, 33.33%); }
 		&:first-child {
 			margin-top: 0;
 		}
@@ -1477,6 +1704,7 @@ body {
 			width: 150px;
 			font-weight: bold;
 			color: #333;
+			.dark & { color: darken($text-color-dark, 20%); }
 			i {
 				position: relative;
 				top: 1px;
@@ -1491,7 +1719,18 @@ body {
 .well {
 	.line {
 		margin: 20px 0;
-		border-color: #E5E5E5;
+		border-color: darken($body-bg, 10.2%);
+		.dark & { border-color: rgba($white,0.08); }
+	}
+}
+
+@include media-breakpoint-only(lg) {
+	.panel .portfolio-meta li {
+		padding-left: 22px;
+		span {
+			display: block;
+			margin-left: -21px;
+		}
 	}
 }
 
@@ -1513,7 +1752,8 @@ body {
 		width: 24px;
 		height: 24px;
 		text-align: center;
-		color: #444;
+		color: $text-color;
+		.dark & { color: darken($text-color-dark, 33.33%); }
 		@include transition(color .3s linear);
 		i {
 			position: relative;
@@ -1529,9 +1769,23 @@ body {
 		}
 		&:hover {
 			color: $theme-color;
+			.dark & { color: $text-color-dark; }
+		}
+	}
+	@include media-breakpoint-down(sm) {
+		#page-title &,
+		.portfolio-ajax-title & {
+			position: relative;
+			top: 0;
+			left: 0;
+			margin: 15px auto 0;
 		}
 	}
 }
+@include media-breakpoint-down(sm) {
+	.portfolio-ajax-title { text-align: center; }
+}
+
 .page-title-right {
 	#portfolio-navigation {
 		left: 10px;
@@ -1549,7 +1803,7 @@ body {
 .page-title-dark {
 	#portfolio-navigation {
 		a {
-			color: #EEE;
+			color: $text-color-dark;
 		}
 	}
 }

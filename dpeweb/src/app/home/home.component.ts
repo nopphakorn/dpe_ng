@@ -10,8 +10,8 @@ export class HomeComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-    console.log("hahahaha == ",this.id)
+    // this.id = this.route.snapshot.paramMap.get('id');
+    // console.log("hahahaha == ",this.id)
   }
 
 }

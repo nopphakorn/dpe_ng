@@ -7,39 +7,32 @@
 .flip-card-back {
 	background-size: cover;
 	background-position: center;
-	-webkit-transition: -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-	transition: -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-	-o-transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-	transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-	transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1),
-	-webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+	@include transition(transform $flipcard-transition);
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 	width: 100%;
-	height: 280px;
-	border-radius: 6px;
-	color: #FFF;
-	font-size: 1.5rem;
-}
+	height: $flipcard-height;
+	@include border-radius($flipcard-border-radius);
+	color: $flipcard-color;
+	font-size: $flipcard-font-size;
 
-.flip-card-front.no-after:after,
-.flip-card-back.no-after:after { content: none }
+	&.no-after:after,
+	&.no-after:after { content: none }
 
-.flip-card-front:after,
-.flip-card-back:after {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 1;
-	width: 100%;
-	height: 100%;
-	content: "";
-	display: block;
-	opacity: 0.6;
-	background-color: #000;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	border-radius: 6px;
+	&:after {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1;
+		width: 100%;
+		height: 100%;
+		content: "";
+		display: block;
+		background-color: $flipcard-bg-overlay;
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+		@include border-radius($flipcard-border-radius);
+	}
 }
 
 .flip-card {
@@ -50,12 +43,7 @@
 	&:hover {
 		.flip-card-front,
 		.flip-card-back {
-			-webkit-transition: -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-			transition: -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-			-o-transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-			transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-			transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1),
-			-webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+			@include transition(transform $flipcard-transition);
 		}
 	}
 }
@@ -66,16 +54,20 @@
 	top: 0;
 	left: 0;
 	width: 100%;
+	-webkit-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
 }
 
 .flip-card-inner {
-	-webkit-transform: translateY(-50%) translateZ(60px) scale(0.94);
-	transform: translateY(-50%) translateZ(60px) scale(0.94);
+	-webkit-transform: $flipcard-inner-tranform;
+	transform: $flipcard-inner-tranform;
 	top: 50%;
 	position: absolute;
 	left: 0;
 	width: 100%;
-	padding: 2rem;
+	padding: $flipcard-inner-padding;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	outline: 1px solid transparent;
@@ -93,13 +85,6 @@
 		margin-bottom: 0;
 		color: rgba(255, 255, 255, 0.7);
 	}
-}
-
-.flip-card-back {
-	-webkit-transform: rotateY(180deg);
-	transform: rotateY(180deg);
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
 }
 
 .flip-card-front,
@@ -139,5 +124,3 @@
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 }
-
-.owl-carousel .owl-stage { padding: 20px 0; }

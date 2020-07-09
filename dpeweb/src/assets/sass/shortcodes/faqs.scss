@@ -11,12 +11,13 @@
 
 .faqs {
 	.toggle {
-		border-bottom: 1px solid #EEE;
-		padding-bottom: 12px;
-		margin-bottom: 12px;
+		border-bottom: $toggle-border-size solid lighten($toggle-border-color, 13.33%);
+		padding-bottom: $toggle-font-size * .75;
+		margin-bottom: $toggle-font-size * .75;
+		.dark & { border-bottom-color: rgba($white,0.1); }
 		.togglet,
 		.toggleta {
-			font-size: 15px;
+			font-size: $toggle-font-size;
 		}
 		.togglec {
 			padding-bottom: 10px;
@@ -24,7 +25,7 @@
 	}
 	i {
 		top: 1px;
-		font-size: 14px;
+		font-size: $toggle-font-size * .875;
 	}
 }
 
@@ -35,9 +36,10 @@
 .faqlist {
 	li {
 		margin-bottom: 5px;
-		font-size: 15px;
+		font-size: $toggle-font-size;
 		a {
-			color: #444;
+			color: $tab-base-color;
+			.dark & { color: darken($text-color-dark, 13.33%); }
 			&:hover {
 				color: $theme-color !important;
 			}

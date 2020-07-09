@@ -11,60 +11,57 @@
 
 
 .counter {
-	font-size: 42px;
-	font-weight: 700;
-	font-family: $heading-font;
-
-	&.counter-small {
-		font-size: 28px;
-	}
-
-	&.counter-large {
-		font-size: 56px;
-	}
-
-	&.counter-xlarge {
-		font-size: 64px;
-		font-weight: 400;
-	}
-
-	&.counter-inherit {
-		font-size: inherit;
-		font-weight: inherit;
-	}
+	font-size: $counter-font-size;
+	font-weight: $counter-font-wight;
+	font-family: $counter-font-family;
+	@at-root .dark { text-shadow: 1px 1px 1px rgba($black,0.1); }
 
 	+ h5 {
 		font-weight: 400;
 		text-transform: uppercase;
 		letter-spacing: 1px;
 		margin-top: 10px;
+		font-size: $counter-caption-size;
 	}
 
-	&.counter-lined {
+	&#{&}-small {
+		font-size: $counter-sm-font-size;
+		+ h5 {
+			font-size: $counter-sm-caption-size;
+		}
+	}
+
+	&#{&}-large {
+		font-size: $counter-lg-font-size;
+		+ h5 {
+			font-size: $counter-lg-caption-size;
+			font-weight: 300;
+		}
+	}
+
+	&#{&}-xlarge {
+		font-size: $counter-xl-font-size;;
+		font-weight: 400;
+		@extend .counter-large;
+	}
+
+	&#{&}-inherit {
+		font-size: inherit;
+		font-weight: inherit;
+	}
+
+	&#{&}-lined {
 		+ h5 {
 			&:before {
 				display: block;
 				position: relative;
 				margin: 20px auto 25px auto;
 				content: '';
-				width: 15%;
-				border-top: 2px solid #444;
+				width: $counter-lined-width;
+				border-top: $counter-lined-size;
 				opacity: 0.9;
+				.dark & { border-color: lighten($body-bg-dark, 71.37); }
 			}
-		}
-	}
-
-	&.counter-small {
-		+ h5 {
-			font-size: 13px;
-		}
-	}
-
-	&.counter-large,
-	&.counter-xlarge {
-		+ h5 {
-			font-size: 15px;
-			font-weight: 300;
 		}
 	}
 }
@@ -80,20 +77,28 @@
 .rounded-skill {
 	display: inline-block;
 	margin: 0 15px 15px;
+	position: relative;
+	text-align: center;
+	font-size: $rounded-skills-font-size;
+	font-weight: bold;
+	color: $rounded-skills-font-color;
 
-	+ h5 {
-		margin-bottom: 0;
-	}
+	.dark & { color: $text-color-dark; }
+
+	i { font-size: $rounded-skills-icon-size; }
+
+	+ h5 { margin-bottom: 0; }
 
 	canvas {
 		position: absolute;
 		top: 0;
 		left: 0;
 	}
-}
 
-body:not(.device-touch) .rounded-skill {
-	@include transition(opacity .4s ease);
+	body:not(.device-touch) & {
+		@include transition(opacity .4s ease);
+	}
+
 }
 
 
@@ -109,15 +114,15 @@ body:not(.device-touch) .rounded-skill {
 
 	li {
 		position: relative;
-		margin-top: 38px;
-		height: 4px;
-		background-color: #F5F5F5;
-		box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-		@include border-radius(2px);
+		margin-top: $progress-skills-margin-gutters;
+		height: $progress-skills-height;
+		background-color: $progress-skills-empty-color;
+		box-shadow: inset 0 1px 2px rgba(black,0.1);
+		@include border-radius($progress-skills-radius);
 
-		&:first-child {
-			margin-top: 0;
-		}
+		.dark & { background-color: rgba($white,0.15); }
+
+		&:first-child { margin-top: 0; }
 
 		.progress {
 			position: absolute;
@@ -125,31 +130,33 @@ body:not(.device-touch) .rounded-skill {
 			left: 0;
 			width: 0;
 			height: 100%;
-			background-color: $theme-color;
+			background-color: $progress-skills-progress-color;
 			overflow: visible !important;
-			@include border-radius(2px);
-			@include transition(width 1.2s ease-in-out);
+			@include border-radius($progress-skills-radius);
+			@include transition(width $progress-skills-transition);
 		}
 
 		.progress-percent {
 			position: absolute;
-			top: -28px;
+			top: - (round($progress-skills-percent-padding * 2) + 23);
 			right: 0;
-			background-color: #333;
-			color: #F9F9F9;
-			text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
-			height: 22px;
-			line-height: 22px;
-			padding: 0px 5px;
-			font-size: 11px;
-			@include border-radius(2px);
+			background-color: $progress-skills-percent-bgcolor;
+			color: $progress-skills-percent-color;
+			text-shadow: 1px 1px 1px rgba(black,0.2);
+			height: auto;
+			padding: $progress-skills-percent-padding;
+			font-size: $progress-skills-percent-size;
+			@include border-radius($progress-skills-radius);
+
+			.dark & {
+				background-color: lighten($body-bg-dark, 8.63);
+			}
 
 			.counter {
 				font-weight: 400;
-				font-family: $body-font;
+				font-family: $progress-skills-counter-font;
 			}
 
-			&:after,
 			&:before {
 				top: 100%;
 				border: solid transparent;
@@ -158,20 +165,13 @@ body:not(.device-touch) .rounded-skill {
 				width: 0;
 				position: absolute;
 				pointer-events: none;
-			}
-
-			&:after {
-				border-top-color: #333;
-				border-width: 4px;
+				border-top-color: $progress-skills-percent-bgcolor;
 				left: 50%;
-				margin-left: -4px;
-			}
-
-			&:before {
-				border-top-color: #333;
-				border-width: 5px;
-				left: 50%;
+				border-width:  5px;
 				margin-left: -5px;
+				.dark & {
+					border-top-color: lighten($body-bg-dark, 8.63);
+				}
 			}
 		}
 
@@ -181,10 +181,13 @@ body:not(.device-touch) .rounded-skill {
 			top: -23px;
 			left: 0;
 			line-height: 20px;
-			font-size: 12px;
+			font-size: $progress-skills-Font-size;
 			font-weight: bold;
 			text-transform: uppercase;
-			color: #222;
+			color: $progress-skills-counter-font-color;
+			.dark & {
+				color: darken($text-color-dark, 13.33);
+			}
 		}
 	}
 }

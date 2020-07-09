@@ -17,34 +17,43 @@
 ul {
 	&.tab-nav {
 		margin: 0;
-		border-bottom: 1px solid #DDD;
+		border-bottom: $tabs-border-bottom solid $tabs-border-color;
 		list-style: none;
+		.dark & { border-color: lighten($body-bg-dark, 6.67); }
 		li {
 			float: left;
-			border: 1px solid #DDD;
+			border: $tabs-border-width solid $tabs-border-color;
 			border-bottom: 0;
 			border-left: 0;
-			height: 41px;
+			height: $tab-height + $tabs-border-width;
 			text-align: center;
 			&:first-child {
-				margin-left: 15px;
-				border-left: 1px solid #DDD;
+				margin-left: $tab-padding-width;
+				border-left: $tabs-border-width solid $tabs-border-color;
+				.dark & { border-left-color: lighten($body-bg-dark, 6.67); }
 			}
+			.dark & { border-color: lighten($body-bg-dark, 6.67); }
 			a {
 				display: block;
-				padding: 0 15px;
-				color: #444;
-				height: 40px;
-				line-height: 40px;
-				background-color: #F2F2F2;
-				font-size: 14px;
+				padding: 0 $tab-padding-width;
+				color: $tab-base-color;
+				height: $tab-height;
+				line-height: $tab-height;
+				background-color: $tabs-bg-color;
+				font-size: $tabs-font-size;
 				font-weight: bold;
+				.dark & {
+					color: darken($text-color-dark, 6.67%);
+					background-color: rgba($black,0.15);
+				}
 			}
 			&.ui-tabs-active {
 				a {
 					position: relative;
-					top: 1px;
-					background-color: #FFF;
+					top: 0;
+					height: $tab-height + $tabs-border-width;
+					background-color: $tabs-active-bg-color;
+					.dark & { background-color: $body-bg-dark; }
 				}
 			}
 		}
@@ -59,10 +68,14 @@ ul {
 		ul.tab-nav li {
 			border-color: transparent;
 			&:first-child { border-left: 0; }
-			a { background-color: #FFF; }
+			a {
+				background-color: $body-bg;
+				.dark & { background-color: $body-bg-dark; }
+			}
 			&.ui-tabs-active a {
-				border: 1px solid #DDD;
+				border: $tabs-border-width solid $tabs-border-color;
 				border-bottom: 0;
+				.dark & { border-color: lighten($body-bg-dark, 6.67); }
 			}
 		}
 	}
@@ -75,17 +88,17 @@ ul {
 	&.tabs-tb {
 		ul.tab-nav {
 			li.ui-tabs-active a {
-				top: -1px;
-				height: 43px;
-				line-height: 38px;
-				border-top: 2px solid $theme-color;
+				top: - round($tabs-border-width - $tabs-tb-border-width) - 1;
+				height: round($tab-height + $tabs-tb-border-width + 1);
+				line-height: round($tab-height - $tabs-tb-border-width);
+				border-top: $tabs-tb-border-width solid $theme-color;
 			}
 		}
 	}
 	&.tabs-alt {
 		&.tabs-tb {
 			ul.tab-nav {
-				li.ui-tabs-active a { height: 42px; }
+				li.ui-tabs-active a { height: round($tab-height + $tabs-tb-border-width + 1); }
 			}
 		}
 	}
@@ -102,13 +115,13 @@ ul {
 				margin: 0;
 				a {
 					background-color: transparent;
-					border-bottom: 2px solid transparent;
+					border-bottom: $tabs-tb-border-width solid transparent;
 				}
 				&.ui-tabs-active a {
-					border-bottom: 2px solid $theme-color;
-					top: -2px;
-					height: 44px;
-					line-height: 44px;
+					border-bottom: $tabs-tb-border-width solid $theme-color;
+					top: - round($tabs-border-width - $tabs-tb-border-width) - round($tabs-tb-border-width / 2);
+					height: round($tab-height + $tabs-tb-border-width + 2);
+					line-height: round($tab-height + $tabs-tb-border-width + 2);
 				}
 			}
 		}
@@ -130,15 +143,18 @@ ul {
 					border-left: 0;
 				}
 				a {
-					background-color: #F5F5F5;
+					background-color: $tabs-bg-color;
 					@include border-radius(2px);
-					box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+					box-shadow: inset 0 1px 2px rgba($black, 0.1);
+
+					.dark & { background-color: rgba($black,0.2); }
 				}
 				&.ui-state-active {
 					a {
 						top: 0;
 						background-color: $theme-color;
 						color: #FFF;
+						.dark & { background-color: $theme-color; }
 					}
 				}
 			}
@@ -152,6 +168,9 @@ ul {
 .tab-container {
 	position: relative;
 	padding: 20px 0 0;
+	@include media-breakpoint-down(sm) {
+		padding: 0 !important;
+	}
 }
 
 ul {
@@ -161,7 +180,7 @@ ul {
 				i {
 					position: relative;
 					top: 1px;
-					font-size: 14px;
+					font-size: $tabs-font-size;
 					margin-right: 3px;
 				}
 			}
@@ -183,9 +202,10 @@ ul {
 		}
 	}
 	.tab-container {
-		border: 1px solid #DDD;
+		border: $tabs-border-bottom solid $tabs-border-color;
 		border-top: 0;
 		padding: 20px;
+		.dark & { border-color: lighten($body-bg-dark, 6.67); }
 	}
 }
 
@@ -196,30 +216,36 @@ ul {
 	ul {
 		&.tab-nav {
 			float: left;
-			width: 200px;
+			width: $side-tab-width;
 			padding: 20px 0;
 			border-bottom: 0;
-			border-right: 1px solid #DDD;
+			border-right: $tabs-border-width solid $tabs-border-color;
+			.dark & { border-right-color: lighten($body-bg-dark, 6.67); }
 			li {
 				float: none;
-				border: 1px solid #DDD;
+				border: $tabs-border-width solid $tabs-border-color;
 				border-right: 0;
 				border-top: 0;
 				height: auto;
 				text-align: left;
+				.dark & { border-color: lighten($body-bg-dark, 6.67); }
 				&:first-child {
 					margin-left: 0;
-					border-top: 1px solid #DDD;
-					border-left: 1px solid #DDD;
+					border-top: $tabs-border-width solid $tabs-border-color;
+					border-left: $tabs-border-width solid $tabs-border-color;
+					.dark & {
+						border-top-color: lighten($body-bg-dark, 6.67);
+						border-left-color: lighten($body-bg-dark, 6.67);
+					}
 				}
 				a {
 					height: auto;
-					line-height: 44px;
+					line-height: $tab-height + round($tabs-border-width * 2);
 				}
 				&.ui-tabs-active {
 					a {
 						top: 0;
-						right: -1px;
+						right: -$tabs-border-width;
 					}
 				}
 			}
@@ -227,7 +253,7 @@ ul {
 	}
 	.tab-container {
 		overflow: hidden;
-		padding: 15px 0 0 20px;
+		padding: 15px 0 0 $side-tab-padding-left;
 	}
 }
 
@@ -269,16 +295,18 @@ ul {
 				position: relative;
 				padding: 0;
 				z-index: 2;
-				margin-right: -1px;
+				margin-right: -$tabs-border-width;
 				li {
 					a {
 						height: auto;
-						line-height: 44px;
+						line-height: $tab-height + round($tabs-border-width * 2);
 					}
 					&.ui-tabs-active {
 						a {
-							right: -1px;
-							border-right: 1px solid #FFF;
+							right: -$tabs-border-width;
+							border-right: $tabs-border-width solid $body-bg;
+
+							.dark & { border-right-color: $body-bg-dark; }
 						}
 					}
 				}
@@ -287,7 +315,8 @@ ul {
 		.tab-container {
 			overflow: hidden;
 			padding: 20px;
-			border-top: 1px solid #DDD;
+			border-top: $tabs-border-width solid $tabs-border-color;
+			.dark & { border-top-color: lighten($body-bg-dark, 6.67); }
 		}
 	}
 }
@@ -300,8 +329,10 @@ ul {
 .sidenav {
 	width: 100%;
 	padding: 0;
-	background-color: #FFF;
-	border-radius: 4px;
+	background-color: $body-bg;
+	border-radius: $sidenav-radius;
+
+	.dark & { background-color: rgba($black,0.2); }
 }
 
 .sidenav li { list-style-type: none; }
@@ -309,19 +340,24 @@ ul {
 .sidenav li a {
 	display: block;
 	position: relative;
-	margin: 0 0 -1px;
-	padding: 11px 20px 11px 14px;
-	font-size: 14px;
-	border: 1px solid #E5E5E5;
-	border-right-width: 2px;
-	color: #666;
+	margin: 0 0 (-$sidenav-border);
+	padding: $sidenav-padding-height ($sidenav-padding-width + $sidenav-icon-margin) $sidenav-padding-height $sidenav-padding-width;
+	font-size: $sidenav-font-size;
+	border: $sidenav-border solid $sidenav-border-color;
+	border-right-width: round($sidenav-border + 1);
+	color: $sidenav-font-color;
+
+	.dark & {
+		border-color: lighten($body-bg-dark, 6.67);
+		color: darken($text-color-dark, 20%);
+	}
 }
 
-.sidenav > li:first-child > a { border-radius: 4px 4px 0 0; }
+.sidenav > li:first-child > a { border-radius: $sidenav-radius $sidenav-radius 0 0; }
 
 .sidenav > li:last-child > a {
-	border-radius: 0 0 4px 4px;
-	border-bottom-width: 2px;
+	border-radius: 0 0 $sidenav-radius $sidenav-radius;
+	border-bottom-width: round($sidenav-border + 1);
 }
 
 .sidenav > .ui-tabs-active > a,
@@ -340,7 +376,7 @@ ul {
 .sidenav li.ui-tabs-active ul { display: block; }
 
 .sidenav li li a {
-	padding: 6px 20px 6px 35px;
+	padding: round($sidenav-padding-height / 2) round($sidenav-padding-width * 1.43) round($sidenav-padding-height / 2) round($sidenav-padding-width * 2.5);
 	font-size: 14px;
 	border-top: none;
 	border-bottom: none;
@@ -353,32 +389,44 @@ ul {
 .sidenav li i {
 	position: relative;
 	top: 1px;
-	margin-right: 6px;
-	font-size: 14px;
+	margin-right: $sidenav-icon-margin;
+	font-size: $sidenav-font-size;
 	text-align: center;
-	width: 16px;
+	width: $sidenav-font-size + 2;
 }
 
 /* Chevrons */
 .sidenav .icon-chevron-right {
 	position: absolute;
-	width: 14px;
-	height: 14px;
+	width: $sidenav-font-size;
+	height: $sidenav-font-size;
 	top: 50%;
 	left: auto;
-	right: 6px;
-	margin-top: -8px;
+	right: $sidenav-icon-margin;
+	margin-top: - round(($sidenav-font-size + 2) / 2);
 	margin-right: 0;
 	opacity: .4;
-	font-size: 12px !important;
+	font-size: $sidenav-font-size - 2 !important;
 }
 
 .sidenav > li > a:hover {
-	background-color: #F5F5F5;
-	color: #222;
+	background-color: darken($body-bg, 3.92%);
+
+	.dark & {
+		background-color: rgba($black,0.3);
+	}
 }
 
 .sidenav a:hover .icon-chevron-right { opacity: .5; }
 
 .sidenav .ui-tabs-active .icon-chevron-right,
 .sidenav .ui-tabs-active a:hover .icon-chevron-right { opacity: 1; }
+
+
+@include media-breakpoint-down(sm) {
+	.tabs-responsive {
+		.tab-container{
+			&:not(.accordion-border) { border: 0; }
+		}
+	}
+}

@@ -10,6 +10,10 @@ export class AppfooterComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
+
+
+  
 
 }

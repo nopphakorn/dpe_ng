@@ -22,7 +22,8 @@
 		position: relative;
 		height: 2px;
 		margin-top: 50px;
-		background-color: #F5F5F5;
+		background-color: darken($body-bg, 3.92%);
+		.dark & { border-bottom-color: rgba($white,0.08); }
 	}
 	blockquote p {
 		font-weight: 400;
@@ -43,7 +44,13 @@
 
 .entry-image {
 	margin-bottom: 30px;
-	iframe { display: block; }
+	iframe {
+		display: block;
+		.post-grid:not(.post-masonry) & {
+			@include media-breakpoint-only(sm) { height: 246px; }
+			@include media-breakpoint-down(xs) { height: 157px; }
+		}
+	}
 	img { @include border-radius(3px); }
 	video {
 		display: block;
@@ -58,9 +65,14 @@
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 1px;
+		@include media-breakpoint-down(sm) {
+			font-size: 18px !important;
+			font-weight: 600;
+		}
 		a {
 			color: #333;
-			&:hover { color: $theme-color; }
+			.dark & { color: $text-color-dark; }
+			&:hover { color: $theme-color; .dark & { color: darken($text-color-dark, 33.33%); }}
 		}
 	}
 }
@@ -73,10 +85,22 @@
 		font-size: 13px;
 		line-height: 14px;
 		margin: 0 10px 15px 0;
-		color: #999;
+		color: darken($text-color-dark, 33.33%);
 		font-family: $secondary-font;
 		font-style: italic;
-			&:before {
+		.dark & {
+			color: darken($text-color-dark, 40%);
+			border-left-color: rgba($white,0.08);
+		}
+		@include media-breakpoint-down(md) {
+			font-size: 12px;
+			margin: 0 10px 10px 0;
+		}
+		@include media-breakpoint-down(sm) {
+			font-size: 11px;
+			margin: 0 10px 10px 0;
+		}
+		&:before {
 			content: '/';
 			display: inline-block;
 			margin-right: 10px;
@@ -87,9 +111,13 @@
 			top: 1px;
 			font-size: 14px;
 			margin-right: 3px;
+			@include media-breakpoint-down(sm) {
+				display: none;
+			}
 		}
 		a { color: #999;
-			&:hover { color: $theme-color; }
+			.dark & { color: darken($text-color-dark, 40%);}
+			&:hover { color: $theme-color; .dark & { color: darken($text-color-dark, 13.33%);} }
 		}
 		&:first-child:before { display: none; }
 		ins {
@@ -115,9 +143,10 @@
 	display: block;
 	width: 100%;
 	background-color: #F5F5F5;
+	.dark & { background-color: rgba($black,0.2); }
 	padding: 30px 0;
 	text-align: center;
-	color: #444;
+	color: $text-color;
 	font-family: $heading-font;
 	text-transform: uppercase;
 	letter-spacing: 1px;
@@ -155,6 +184,11 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 		float: left;
 		width: 300px;
 		margin: 0 30px 0 0;
+		@include media-breakpoint-down(sm) {
+			float: none !important;
+			width: 100% !important;
+			margin: 0 0 20px !important;
+		}
 		img {
 			@include border-radius(0);
 		}
@@ -163,7 +197,7 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 
 .small-thumbs,
 .ievent {
-	 .entry-c {
+	.entry-c {
 		 .entry-image {
 			float: none;
 			width: 100%;
@@ -177,6 +211,7 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 		 h2 {
 			font-size: 20px;
 			font-weight: 600;
+			@include media-breakpoint-down(md) { font-size: 18px; }
 		}
 	}
 }
@@ -200,6 +235,16 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 	}
 }
 
+@include media-breakpoint-only(lg) {
+	.small-thumbs {
+		 .entry-image {
+			.postcontent & {
+				width: 200px;
+			}
+		}
+	}
+}
+
 
 /* Small Thumbs - Both Sidebar
 -----------------------------------------------------------------*/
@@ -209,6 +254,9 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 		.entry-image {
 			width: 200px;
 			margin: 0 25px 0 0;
+			@include media-breakpoint-only(lg) {
+				width: 120px;
+			}
 		}
 		&.alt {
 			.entry-image {
@@ -234,10 +282,31 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 
 .post-grid {
 	margin-right: (-$blog-4-margin);
+	@include media-breakpoint-down(md) { margin-right: (-$blog-item-4-md-margin); }
+	@include media-breakpoint-down(sm) {
+		margin-right: (-$blog-item-3-sm-margin);
+		@if $blog-item-3-sm-grid == 1 { margin-right: 0; }
+	}
 	.entry {
 		float: left;
 		width: 25%;
-		margin-right: $blog-4-margin;
+		padding-right: $blog-4-margin;
+		@include media-breakpoint-down(md) {
+			width: 100% / $blog-item-4-md-grid;
+			padding-right: $blog-item-4-md-margin;
+		}
+		@include media-breakpoint-down(sm) {
+			@if $blog-item-4-sm-grid == 1 {
+				float: none !important;
+				width: 100% !important;
+				margin-right: 0 !important;
+				border-right: 0 !important;
+				padding-right: 0;
+			} @else {
+				width: 100% / $blog-item-4-sm-grid;
+				padding-right: $blog-item-4-sm-margin;
+			}
+		}
 	}
 	.entry-image {
 		img {
@@ -248,12 +317,23 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 		h2 {
 			font-size: 17px;
 			font-weight: 600;
+			@include media-breakpoint-down(sm) {
+				font-size: 18px !important;
+				font-weight: 600;
+			}
 		}
 	}
 	.entry-link {
 		font-size: 24px;
 		span {
 			font-size: 13px;
+		}
+	}
+
+	@include media-breakpoint-down(sm) {
+		.entry-meta li i
+		.entry-meta li:last-child i {
+			display: inline-block;
 		}
 	}
 }
@@ -266,9 +346,30 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 .post-grid {
 	&.grid-3 {
 		margin-right: (-$blog-3-margin);
+		@include media-breakpoint-down(md) { margin-right: (-$blog-item-3-md-margin); }
+		@include media-breakpoint-down(sm) {
+			margin-right: (-$blog-item-3-sm-margin);
+			@if $blog-item-3-sm-grid == 1 { margin-right: 0; }
+		}
 		.entry {
 			width: 33.33333333%;
-			margin-right: $blog-3-margin;
+			padding-right: $blog-3-margin;
+			@include media-breakpoint-down(md) {
+				width: 100% / $blog-item-3-md-grid;
+				padding-right: $blog-item-3-md-margin;
+			}
+			@include media-breakpoint-down(sm) {
+				@if $blog-item-3-sm-grid == 1 {
+					float: none !important;
+					width: 100% !important;
+					margin-right: 0 !important;
+					border-right: 0 !important;
+					padding-right: 0;
+				} @else {
+					width: 100% / $blog-item-3-sm-grid;
+					padding-right: $blog-item-3-sm-margin;
+				}
+			}
 		}
 		.entry-title {
 			h2 {
@@ -285,8 +386,29 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 	.post-grid {
 		&.grid-3 {
 			margin-right: (-$blog-3-margin-sb);
+			@include media-breakpoint-down(md) { margin-right: (-$blog-item-3-md-margin); }
+			@include media-breakpoint-down(sm) {
+			margin-right: (-$blog-item-3-sm-margin);
+				@if $blog-item-3-sm-grid == 1 { margin-right: 0; }
+			}
 			.entry {
-				margin-right: $blog-3-margin-sb;
+				padding-right: $blog-3-margin-sb;
+				@include media-breakpoint-down(md) {
+					width: 100% / $blog-item-3-md-grid;
+					padding-right: $blog-item-3-md-margin;
+				}
+				@include media-breakpoint-down(sm) {
+					@if $blog-item-3-sm-grid == 1 {
+						float: none !important;
+						width: 100% !important;
+						margin-right: 0 !important;
+						border-right: 0 !important;
+						padding-right: 0;
+					} @else {
+						width: 100% / $blog-item-3-sm-grid;
+						padding-right: $blog-item-3-sm-margin;
+					}
+				}
 			}
 			.entry-title {
 				h2 {
@@ -303,9 +425,32 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 .post-grid {
 	&.grid-2 {
 		margin-right: (-$blog-2-margin);
+		@include media-breakpoint-down(md) {
+			margin-right: (-$blog-item-2-md-margin);
+		}
+		@include media-breakpoint-down(sm) {
+			margin-right: (-$blog-item-2-sm-margin);
+				@if $blog-item-2-sm-grid == 1 { margin-right: 0; }
+			}
 		.entry {
 			width: 50%;
-			margin-right: $blog-2-margin;
+			padding-right: $blog-2-margin;
+			@include media-breakpoint-down(md) {
+				width: (100% / $blog-item-2-md-grid);
+				padding-right: $blog-item-2-md-margin;
+			}
+			@include media-breakpoint-down(sm) {
+				@if $blog-item-2-sm-grid == 1 {
+					float: none !important;
+					width: 100% !important;
+					margin-right: 0 !important;
+					border-right: 0 !important;
+					padding-right: 0;
+				} @else {
+					width: 100% / $blog-item-2-sm-grid;
+					padding-right: $blog-item-2-sm-margin;
+				}
+			}
 		}
 		.entry-title {
 			h2 {
@@ -367,12 +512,43 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 		padding: 40px 30px;
 		border-bottom: 1px dashed;
 		border-left: 1px dashed;
-		border-color: #E5E5E5;
+		border-color: darken($body-bg, 10.20);
+		.dark & { border-color: rgba($white,0.08); }
+		@include media-breakpoint-down(md) {
+			width: (100% / $blog-item-4-md-grid) !important;
+		}
+		@include media-breakpoint-down(sm) {
+			@if $blog-item-4-sm-grid == 1 {
+				float: none !important;
+				width: 100% !important;
+				margin-right: 0 !important;
+				border-right: 0 !important;
+				padding: 40px;
+			} @else {
+				width: 100% / $blog-item-4-sm-grid;
+				padding-right: $blog-item-4-sm-margin;
+			}
+		}
 		&:after { display: none; }
 	}
 	&.grid-3 {
 		.entry {
 			width: 33.30% !important;
+			@include media-breakpoint-down(md) {
+				width: 100% / $blog-item-3-md-grid !important;
+			}
+			@include media-breakpoint-down(sm) {
+				@if $blog-item-3-sm-grid == 1 {
+					float: none !important;
+					width: 100% !important;
+					margin-right: 0 !important;
+					border-right: 0 !important;
+					padding-right: 0;
+				} @else {
+					width: 100% / $blog-item-3-sm-grid;
+					padding-right: $blog-item-3-sm-margin;
+				}
+			}
 		}
 	}
 }
@@ -386,8 +562,10 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 	left: 50%;
 	margin-left: -71px;
 	width: 0;
-	border-left: 1px dashed #CCC;
+	border-left: 1px dashed darken($body-bg, 20%);
+	.dark & { border-left-color: rgba($white,0.1); }
 	height: 100%;
+	@include media-breakpoint-down(sm) { display: none !important; }
 }
 
 .post-timeline {
@@ -396,12 +574,20 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 		width: 500px !important;
 		margin-right: 140px !important;
 		padding-right: 0 !important;
+
+		@include media-breakpoint-only(lg) { width: 400px !important }
+		@include media-breakpoint-down(md) { width: 290px !important }
 	}
 	.entry-timeline {
 		display: none;
 		position: absolute;
 		border: 2px solid #CCC;
 		background-color: #FFF;
+		.dark & {
+			border-color: rgba($white,0.1);
+			background-color: rgba($white,0.08);
+			color: darken($text-color-dark, 26.67);
+		}
 		padding-top: 0;
 		text-indent: -9999px;
 		top: 40px;
@@ -416,6 +602,7 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 		text-align: center;
 		line-height: 1;
 		@include transition(all .3s ease-in-out);
+		@include media-breakpoint-down(sm) {display: none !important;}
 		div {
 			&.timeline-divider {
 				position: absolute;
@@ -423,7 +610,8 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 				left: -58px;
 				width: 50px;
 				height: 0;
-				border-top: 1px dashed #CCC;
+				border-top: 1px dashed darken($body-bg, 20.00);
+				.dark & { border-top-color: rgba($white,0.1); }
 				@include transition(all .3s ease-in-out);
 			}
 		}
@@ -454,6 +642,8 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 		padding: 0;
 		border: 0;
 		text-align: center;
+		@include media-breakpoint-down(md) { width: 100% !important; }
+		@include media-breakpoint-down(sm) { margin-left: 0; }
 		span {
 			display: inline-block;
 			padding: 10px 15px;
@@ -464,6 +654,10 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 			letter-spacing: 1px;
 			text-transform: uppercase;
 			font-family: $heading-font;
+			.dark & {
+				border-color: rgba($white,0.1);
+				background-color: darken($body-bg-dark, 1.96);
+			}
 		}
 		& + .entry {
 			.entry-timeline {
@@ -490,7 +684,7 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 
 .postcontent {
 	.timeline-border {
-		left: 32px;
+		left: -68px;
 		margin-left: 0;
 	}
 	.post-timeline {
@@ -498,10 +692,16 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 		margin-left: 100px;
 		margin-right: 0 !important;
 		overflow: visible;
+		@include media-breakpoint-down(sm) {
+			margin: 0;
+			padding-left: 0;
+		}
+
 		.entry {
 			width: 100% !important;
-			margin-right: 140px !important;
+			margin-right: 0 !important;
 		}
+
 		.entry-timeline {
 			display: block;
 			border: 3px solid #CCC;
@@ -514,13 +714,12 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 			width: 64px;
 			height: 64px;
 			font-size: 24px;
-			div {
-				&.timeline-divider {
-					top: 29px;
-					left: 64px;
-					width: 32px;
-				}
-			}
+		}
+
+		.entry-timeline div.timeline-divider {
+			top: 29px;
+			left: 64px;
+			width: 32px;
 		}
 	}
 }
@@ -543,8 +742,10 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 			font-weight: 600;
 			a {
 				color: #333;
+				.dark & { color: $text-color-dark; }
 				&:hover {
 					color: $theme-color;
+					.dark & { color: darken($text-color-dark, 33.33%); }
 				}
 			}
 		}
@@ -609,7 +810,8 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 .mpost {
 	margin-top: 20px;
 	padding-top: 20px;
-	border-top: 1px dashed #E5E5E5;
+	border-top: 1px dashed darken($body-bg, 10.20);
+	.dark & { border-top-color: rgba($white,0.1);  }
 }
 
 .mpost {
@@ -654,6 +856,10 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 				line-height: 48px;
 				color: #666;
 				background-color: #EEE;
+				.dark & {
+					color: darken($text-color-dark, 13.33);
+					background-color: rgba(0,0,0,0.2);
+				}
 			}
 		}
 	}
@@ -664,8 +870,14 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 			font-weight: 600;
 			a {
 				color: #333;
+				.dark & {
+					color: darken($text-color-dark, 20%);
+				}
 				&:hover {
 					color: $theme-color;
+					.dark & {
+						color: darken($text-color-dark, 33.33%);
+					}
 				}
 
 			}
@@ -685,6 +897,14 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 		li {
 			font-size: 13px;
 			margin: 0 10px 0 0;
+			.dark & {
+				a {
+					color: darken($text-color-dark, 26.67%);
+					&:hover{
+						.dark & {color: darken($text-color-dark, 40%);}
+					}
+				}
+			}
 		}
 	}
 }
@@ -695,10 +915,19 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 .mpost {
 	.entry-image {
 		margin-right: 20px;
+		@include media-breakpoint-only(sm) {
+			float: none;
+			margin: 0 0 20px 0;
+		}
 		a {
 			i {
 				font-size: 42px;
 				line-height: 128px;
+				@include media-breakpoint-only(lg) { line-height: 90px; }
+				@include media-breakpoint-only(sm) {
+					height: 150px;
+					line-height: 150px;
+				}
 			}
 		}
 	}
@@ -726,6 +955,14 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 	.entry-image i {
 		width: 170px;
 		height: 128px;
+		@include media-breakpoint-only(lg) {
+			width: 120px;
+			height: 90px;
+		}
+		@include media-breakpoint-only(sm) {
+			width: 100%;
+			height: auto;
+		}
 	}
 	.entry-image {
 		a,
@@ -771,6 +1008,7 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 	margin-top: 50px;
 	padding-top: 50px;
 	border-top: 1px solid #EEE;
+	.dark &{ border-top-color: rgba($white,0.08); }
 }
 
 .commentlist {
@@ -778,6 +1016,7 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 	padding-bottom: 50px;
 	margin: 0 0 50px;
 	border-bottom: 1px solid #EEE;
+	.dark &{ border-bottom-color: rgba($white,0.08); }
 	ul {
 		list-style: none;
 		&:first-child {
@@ -837,6 +1076,7 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 	border: 1px solid #E5E5E5;
 	@include border-radius(5px);
 	padding: 20px 20px 20px 35px;
+	.dark &{ border-bottom-color: rgba($white,0.08); }
 }
 
 .commentlist > li,
@@ -864,6 +1104,10 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 	background: #FFF;
 	border: 1px solid #E5E5E5;
 	@include border-radius(50%);
+	.dark & {
+		background: rgba($white,0.08);
+		border-color: rgba($white,0.1);
+	}
 	img {
 		display: block;
 		@include border-radius(50%);
@@ -886,11 +1130,20 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 		font-size: 16px;
 		font-weight: bold;
 		color: #555;
+		.dark & {
+			color: darken($text-color-dark, 13.33%);
+		}
 		a {
 			border: none;
 			color: #333;
+			.dark & {
+				color: darken($text-color-dark, 20%);
+			}
 			&:hover {
 				color: $theme-color;
+				.dark & {
+					color: $text-color-dark;
+				}
 			}
 		}
 		span {
@@ -928,11 +1181,13 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 .review-comment-ratings {
 	width: auto;
 	color: #333;
+	.dark & { color: darken($text-color-dark, 13.33%); }
 }
 
 .comment-reply-link {
 	&:hover {
 		color: #888;
+		.dark & { color: darken($text-color-dark, 20%); }
 	}
 }
 
@@ -967,7 +1222,7 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 	}
 	label {
 		small {
-			color: #999;
+			color: darken($text-color-dark, 33.33%);
 			font-weight: normal;
 		}
 	}
@@ -1061,6 +1316,7 @@ p {
 		padding: 5px 10px;
 		background-color: #EEE;
 		@include border-radius(50px);
+		.dark & { background-color: rgba($black,0.2); }
 	}
 }
 

@@ -96,7 +96,9 @@
 
 /* Jinpa */
 .pricing--jinpa .pricing--item {
-	font-family: 'Raleway';
+	font-family: 'Raleway', sans-serif;
+	font-family: var(--font-primary);
+	font-family: ;
 	margin: 1.5em 0;
 	padding: 2em;
 	cursor: default;

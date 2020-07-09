@@ -5,6 +5,25 @@
 
 -----------------------------------------------------------------*/
 
+/* ----------------------------------------------------------------
+	Bootstrap Adjustments
+-----------------------------------------------------------------*/
+.container {
+	@include media-breakpoint-up(sm) { max-width: map-get($container-max-widths, "sm"); }
+	@include media-breakpoint-up(md) { max-width: map-get($container-max-widths, "md") + $grid-gutter-width; }
+	@include media-breakpoint-up(lg) { max-width: map-get($container-max-widths, "lg") + 10; }
+	@include media-breakpoint-up(xl) { max-width: map-get($container-max-widths, "xl") + $grid-gutter-width; }
+	@include media-breakpoint-down(xs) {
+		width: 100% !important;
+		padding-left: round($grid-gutter-xs-width / 2) !important;
+		padding-right: round($grid-gutter-xs-width / 2) !important;
+	}
+}
+
+body,
+.dropdown-menu { font-size: $font-size-body; }
+
+body.dark { background-color: $body-bg-dark; }
 
 /* ----------------------------------------------------------------
 	Sections
@@ -17,9 +36,13 @@
 	background-color: $section-bg;
 	overflow: hidden;
 
-	.container {
-		z-index: 2;
+	&.dark,
+	.dark & {
+		background-color: $section-bg-dark;
+		border-color: $line-dark;
 	}
+
+	.container { z-index: 2; }
 
 	.container + .video-wrap {
 		z-index: 1;
@@ -43,11 +66,11 @@
 
 .revealer-image {
 	position: relative;
-	bottom: -($section-padding * 2);
+	bottom: - round($section-padding * 2);
 	@include transition(bottom .3s ease-in-out);
 }
 
-.section:hover .revealer-image { bottom: -$section-padding; }
+.section:hover .revealer-image { bottom: (-$section-padding); }
 
 
 /* ----------------------------------------------------------------
@@ -60,6 +83,15 @@
 
 	&.bothsidebar {
 		width: $bothsidebar;
+		@include media-breakpoint-down(md) {
+			width: 100%;
+			margin-right: 0;
+			float: none !important;
+			margin-bottom: 40px !important;
+			padding-bottom: 40px;
+			border-bottom: 1px solid darken($body-bg, 6.67);
+			.dark & { border-bottom-color: rgba($white,0.1); }
+		}
 	}
 }
 
@@ -77,10 +109,30 @@
 .col_one_sixth { width: 13.33%; }
 .col_five_sixth { width: 82.67%; }
 
-body.stretched .container-fullwidth {
-	position: relative;
-	padding: 0 60px;
-	width: 100%;
+body.stretched {
+	.container-fullwidth {
+		position: relative;
+		padding: 0 $section-padding;
+		width: 100%;
+	}
+}
+.container-fullwidth {
+	@include media-breakpoint-down(md) {
+		padding: 0 round($grid-gutter-width / 2) !important;
+		margin: 0 auto;
+		width: map-get($container-max-widths, "md") + $grid-gutter-width;
+	}
+	@include media-breakpoint-down(sm) {
+		margin: 0 auto;
+	}
+	@include media-breakpoint-only(sm) {
+		width: map-get($container-max-widths, "sm") !important;
+	}
+	@include media-breakpoint-down(xs) {
+		width: 100% !important;
+		padding-left: round($grid-gutter-xs-width / 2) !important;
+		padding-right: round($grid-gutter-xs-width / 2) !important;
+	}
 }
 
 .postcontent,
@@ -102,10 +154,27 @@ body.stretched .container-fullwidth {
 	margin-right: 4%;
 	margin-bottom: $margin-base;
 	float: left;
+	@include media-breakpoint-down(sm) {
+		width: 100%;
+		margin-right: 0;
+		float: none;
+		margin-bottom: $margin-base !important;
+	}
 }
 
 .postcontent,
-.sidebar { margin-right: $postcontent-margin; }
+.sidebar {
+	margin-right: $postcontent-margin;
+	@include media-breakpoint-down(md) {
+		width: 100%;
+		margin-right: 0;
+		float: none !important;
+		margin-bottom: 40px !important;
+		padding-bottom: 40px;
+		border-bottom: 1px solid darken($body-bg, 6.67);
+		.dark & { border-bottom-color: rgba($white,0.1); }
+	}
+}
 
 .col_full {
 	clear: both;
@@ -117,4 +186,12 @@ body.stretched .container-fullwidth {
 	margin-right: 0 !important;
 	float: right;
 	clear: right;
+	@include media-breakpoint-down(md) {
+		@at-root.sidebar#{&} {
+			float: none;
+			margin-bottom: 0 !important;
+			padding-bottom: 0;
+			border-bottom: 0;
+		}
+	}
 }

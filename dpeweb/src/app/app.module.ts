@@ -26,6 +26,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
 import { ExampleComponent } from './example/example.component';
 import { AboutComponent } from './about/about.component';
+import { ContentFourComponent } from './home/content-four/content-four.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AboutComponent } from './about/about.component';
     ContentTwoComponent,
     ContentThreeComponent,
     ExampleComponent,
-    AboutComponent
+    AboutComponent,
+    ContentFourComponent
   ],
   imports: [
     BrowserModule,
